@@ -1,0 +1,93 @@
+.poem-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.poem {
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    width: 480px;
+    font-size: 20px;
+    overflow: visible;
+    text-align: left;
+    position: relative;
+    margin: 50px;
+}
+
+.poem .react-loading-skeleton {
+    border-radius: 0px;
+    height: 36px;
+    margin: 10px;
+    display: block;
+    opacity: 0.5;
+}
+.poem-title-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.line {
+    display: block;
+    margin: 10px;
+    max-width: 480px;
+    cursor: default;
+    position: relative;
+}
+.line:hover .line-content {
+    background: #CDB4DB;
+}
+.line .info {
+    position: absolute;
+    right: calc(100% + 10px);
+    white-space: nowrap;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.7;
+    display: none;
+}
+.line:hover .info {
+    display: block;
+}
+
+.line .line-content {
+    padding: 3px 7px;
+    white-space: nowrap;
+}
+
+.line.line-input {
+    padding: 3px 7px;
+    white-space: nowrap;
+    cursor: text;
+    border: none;
+    background: #CDB4DB;
+    font-size: 20px;
+    font-family: inherit;
+    width: 100%;
+    min-width: 300px;
+    outline: none;
+
+    background: linear-gradient(to left, transparent 50%, #CDB4DB 50%) right;
+    background-position: right;
+    background-size: 200%;
+    transition: all 0.7s ease-out;
+}
+.line-input:valid, .line-input:focus {
+    background-position: left;
+}
+
+.line.line-input.req-pending {
+    background-position: left;
+    opacity: 0.6;
+    background: linear-gradient( 90deg,#CDB4DB,#eac4ff,#CDB4DB );
+    background-color: #CDB4DB;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    -webkit-animation: animation-16jpnkj 1.2s ease-in-out infinite;
+    animation: animation-16jpnkj 1.2s ease-in-out infinite;
+}
+.line.line-input.req-success {
+    background-position: right;
+}

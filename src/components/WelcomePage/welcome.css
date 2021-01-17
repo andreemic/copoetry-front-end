@@ -1,0 +1,47 @@
+.welcome-con {
+    width: 100vw;
+    height: 80vh;
+    min-height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+.welcome-con h2 {
+    font-size: 43px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+.welcome-con h2 span {
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    top: 100%;
+    margin-top: 10px;
+    display: block;
+}
+
+.welcome-con p {
+    margin-bottom: 50px;
+}
+.welcome-login-btn {
+    box-shadow: none;
+    background: linear-gradient(135deg, #b3dbfd, #87b9e8);
+    background-size: 400% 400%;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    cursor: pointer;
+    animation: BGGradient 30s ease infinite;
+}
+
+@keyframes BGGradient {
+    0%{background-position:0% 36%}
+    50%{background-position:100% 65%}
+    100%{background-position:0% 36%}
+}

@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+.app-wrapper {
+    z-index: 20;
+}
+svg.big-loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/* Palette https://coolors.co/cdb4db-ffc8dd-ffafcc-bde0fe-a2d2ff */
+body {
+    padding: 0;
+    margin: 0;
+    --pink-lavender: #cdb4dbff;
+    --orchid-pink: #ffc8ddff;
+    --nadeshiko-pink: #ffafccff;
+    --uranian-blue: #bde0feff;
+    --baby-blue-eyes: #a2d2ffff;
+
+    font-family: 'Montserrat', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.light-text {
+    font-weight: 300;
+    font-style: italic;
 }
-
-.App-link {
-  color: #61dafb;
+.personal {
+    color: #0084ff;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.poem-title {
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.small-boxy {
+    font-family: Montserrat, sans-serif;
+    font-feature-settings: "smcp", "c2sc";
+    font-variant: all-small-caps;
+    font-size: 17px;
 }

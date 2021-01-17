@@ -1,0 +1,70 @@
+
+.read-page {
+    width: 90%;
+    max-width: 1300px;
+    margin: 50px auto;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.read-page span.react-loading-skeleton.css-1vmnjpn-skeletonStyles-Skeleton {
+
+    width: 300px;
+    margin: 20px;
+    height: 250px !important;
+}
+a {
+
+    text-decoration: none;
+}
+.poem-preview {
+    width: 300px;
+    margin: 20px;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    color: black;
+    height: 250px;
+}
+
+.poem-preview h3 {
+    font-size: 34px;
+    z-index: 15;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px 0px;
+    transition: all .3s ease-out;
+}
+.poem-preview:hover h3 {
+    transform: translateZ(30px);
+}
+.poem-preview-content p {
+    margin: 0px;
+    filter: blur(1px);
+    transition: filter .3s ease-out;
+}
+.poem-preview:hover .poem-preview-content p {
+    filter: blur(0px);
+}
+li.poem-preview-line {
+    display: block;
+}
+
+.poem-preview-content {
+    position: relative;
+    overflow: hidden;
+}
+.poem-preview-footer {
+    position: absolute;
+    bottom: 10px;
+    padding: 0px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all .3s ease-out;
+}
+.poem-preview:hover .poem-preview-footer {
+    transform: translateZ(20px);
+}
+span.poem-preview-creator {
+    float: right;
+}
