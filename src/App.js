@@ -21,7 +21,7 @@ function App() {
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
-                <BrowserRouter>
+                <BrowserRouter basename={'/copoetry'}>
                     {isAuthenticated && <Header/>} {/*To-do: better logic for hiding header on Welcome*/}
                     <Switch>
                         <Route path='/welcome' component={WelcomePage}/>

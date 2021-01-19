@@ -51,7 +51,7 @@ function PoemPage({random, editable, addingPoem, setParentError, refresh}) {
                 const token = await getTokenSilently();
                 // Send a GET request to the server and add the signed in user's
                 // access token in the Authorization header
-                const response = await fetch("/api/get/poem/" + (random ? "random/" + user.nickname : poemid), {
+                const response = await fetch("/copoetry/api/get/poem/" + (random ? "random/" + user.nickname : poemid), {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -88,7 +88,7 @@ function PoemPage({random, editable, addingPoem, setParentError, refresh}) {
         try {
             setSendLineStatus(REQ_STATUS.LOADING)
             const token = await getTokenSilently();
-            const response = await fetch("/api/add/line", {
+            const response = await fetch("/copoetry/api/add/line", {
                 method: "post",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -120,7 +120,7 @@ function PoemPage({random, editable, addingPoem, setParentError, refresh}) {
         try {
             setSendPoemStatus(REQ_STATUS.LOADING)
             const token = await getTokenSilently();
-            const response = await fetch("/api/add/poem", {
+            const response = await fetch("/copoetry/api/add/poem", {
                 method: "post",
                 headers: {
                     Authorization: `Bearer ${token}`,

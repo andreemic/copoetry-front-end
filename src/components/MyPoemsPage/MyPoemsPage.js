@@ -24,7 +24,7 @@ function MyPoemsPage() {
                 const token = await getTokenSilently();
                 // Send a GET request to the server and add the signed in user's
                 // access token in the Authorization header
-                const response = await fetch("/api/get/my_poems/" + user.nickname, {
+                const response = await fetch("/copoetry/api/get/my_poems/" + user.nickname, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
