@@ -12,7 +12,18 @@
     overflow: visible;
     text-align: left;
     position: relative;
-    margin: 50px;
+    margin: 50px auto;
+}
+
+.poem-title {
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 }
 
 .poem .react-loading-skeleton {
@@ -38,6 +49,9 @@
 .line:hover .line-content {
     background: #CDB4DB;
 }
+.darkmode .line:hover .line-content {
+    background: #a5a5a5;
+}
 .line .info {
     position: absolute;
     right: calc(100% + 10px);
@@ -57,12 +71,11 @@
     white-space: nowrap;
 }
 
-.line.line-input {
+.poem-input-field {
     padding: 3px 7px;
     white-space: nowrap;
     cursor: text;
     border: none;
-    background: #CDB4DB;
     font-size: 20px;
     font-family: inherit;
     width: 100%;
@@ -74,11 +87,11 @@
     background-size: 200%;
     transition: all 0.7s ease-out;
 }
-.line-input:valid, .line-input:focus {
+.poem-input-field:valid, .poem-input-field:focus {
     background-position: left;
 }
 
-.line.line-input.req-pending {
+.poem-input-field.req-pending {
     background-position: left;
     opacity: 0.6;
     background: linear-gradient( 90deg,#CDB4DB,#eac4ff,#CDB4DB );
@@ -88,6 +101,20 @@
     -webkit-animation: animation-16jpnkj 1.2s ease-in-out infinite;
     animation: animation-16jpnkj 1.2s ease-in-out infinite;
 }
-.line.line-input.req-success {
+.poem-input-field.req-success {
     background-position: right;
+}
+
+.line.poem-input-field::placeholder {
+    font-size: 16px;
+    font-weight: lighter;
+}
+.poem-title.poem-input-field::placeholder {
+    font-size: 16px;
+    font-weight: lighter;
+}
+@keyframes animation-16jpnkj{0%{background-position:-200px 0;}100%{background-position:calc(200px + 100%) 0;}}
+
+.darkmode .poem {
+    color: white;
 }

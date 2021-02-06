@@ -3,21 +3,30 @@ import {getRequestStatusClass, REQ_STATUS} from "../../utils";
 
 function PoemInput({onSubmit, submitStatus}) {
     const [titleInput, setTitleInput] = useState("")
+    const [firstLineInput, setFirstLineInput] = useState("")
     const handleTitleInput = (event) => setTitleInput(event.target.value)
+    const handleLineInput = (event) => setFirstLineInput(event.target.value)
     const handleKeyDown = (event) => {
-        if (event.key === 'Enter') onSubmit(titleInput)
+        if (event.key === 'Enter' && inputsValid()) submit()
     }
-    if (submitStatus === REQ_STATUS.NOT_STARTED)
-        return <input required={true} maxLength={42} className={"title title-input " + getRequestStatusClass(submitStatus)}
-               value={titleInput} onChange={handleTitleInput} placeholder="Your title. Keep it mysterious..."
+    const inputsValid = () => firstLineInput.length > 0 && titleInput.length > 0;
+    const submit = () => onSubmit(titleInput, firstLineInput)
+
+    return <div className={"poem poem-input " + (submitStatus === REQ_STATUS.LOADING ? " loading" : "")}>
+        <input required={true} maxLength={42}
+               className={"poem-title-input poem-title poem-input-field " + getRequestStatusClass(submitStatus)}
+               value={titleInput} onChange={handleTitleInput}
+               placeholder="Your title. Keep it mysterious..."
                type="text" onKeyDown={handleKeyDown} autoFocus={true}/>
-    else if (submitStatus === REQ_STATUS.SUCCESS)
-        return <span className="poem-submit-success">
-            Your poem is off to the races!
-        </span>
-    else if (submitStatus === REQ_STATUS.FAIL)
-            return <span className="poem-submit-success">Your poem got lost in delivery... Try reloading</span>
-    else return <span>Loading...</span>
+
+        <h3><input required={true} maxLength={100}
+                   className={"line poem-input-field " + getRequestStatusClass(submitStatus)}
+                   value={firstLineInput} onChange={handleLineInput}
+                   placeholder="First line. Something nice. Something one can build upon..."
+                   type="text" onKeyDown={handleKeyDown} autoFocus={true}/></h3>
+        <span className={"add-poem-btn " + (inputsValid() ? "" : "hidden")} onClick={submit}>Add Poem <span
+            className="pen-emoji"/>️ </span>
+    </div>
 }
 
 export default PoemInput

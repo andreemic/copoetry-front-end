@@ -24,19 +24,41 @@
     font-variant: all-small-caps;
     font-size: 20px;
     cursor: pointer;
-    border-bottom: solid 1px transparent;
+    opacity: 0.6;
+    color: inherit;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease;
 }
 .write-page-btn-con button:hover {
-    border-bottom: solid 1px black;
-    box-sizing: border-box;
+    opacity: 1;
 }
 
-input.title.title-input {
-    background: none;
+input.poem-title-input {
     border: none;
     outline: none;
-    border-bottom: 1px solid black;
-    margin: 50px;
-    width: 300px;
+    width: 400px;
 }
 
+.add-poem-btn {
+    float: right;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.7s ease, visibility 0.7s 0s;
+    visibility: visible;
+}
+.add-poem-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.pen-emoji {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("pen-emoji.png");
+}

@@ -1,28 +1,77 @@
-import React, {useState} from "react";
-import PoemPage from "../PoemPage/PoemPage";
+import React, {useEffect, useState} from "react";
 import "./writePage.css"
 import {REQ_STATUS} from "../../utils";
-import {useAuth0} from "../../react-auth0-spa";
+import {useApi} from "../../helpers/api";
+import Poem from "../Poem/Poem";
+import PoemInput from "./PoemInput";
+import {getErrorMessage, POEM_SEND_ERR, showError, showInfo, showSuccess} from "../../helpers/ui-msg";
 
 function WritePage() {
-    const [error, setError] = useState("");
+    const [error, setError] = useState("")
+
+    const {getRandomPoem, submitPoem} = useApi();
+    const [poem, setPoem] = useState()
+    const [loadPoemStatus, setLoadPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
     const [addingPoem, setAddingPoem] = useState(false);
-    const [refresh, setRefresh] = useState(false);
+    const [submitPoemStatus, setSubmitPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
+
+    const getNewPoem = () => {
+        setLoadPoemStatus(REQ_STATUS.LOADING);
+        getRandomPoem().then(response => {
+            if (response.status === "success") {
+                setLoadPoemStatus(REQ_STATUS.SUCCESS);
+                setPoem(response.data);
+            } else if (response.status === "error" && response.httpStatus === 404) {
+                // No editable poems.
+                setLoadPoemStatus(REQ_STATUS.FAIL);
+                setPoem(null);
+            } else {
+                // Request gone wrong.
+                setLoadPoemStatus(REQ_STATUS.FAIL);
+                setError(response.message);
+            }
+        }).catch(err => {
+            setError("Can't load this poem.")
+        });
+    }
+    useEffect(getNewPoem, []);
+
+
+    const onSubmitPoem = (title, firstLine) => {
+        if (!title || !firstLine || firstLine.length === 0 || title.length === 0) return;
+        setSubmitPoemStatus(REQ_STATUS.LOADING)
+        submitPoem(title, firstLine).then(response => {
+            if (response.status === "success") {
+                // Updated Poem is inside response.data.
+                setSubmitPoemStatus(REQ_STATUS.SUCCESS);
+                setPoem(response.data);
+                setAddingPoem(false);
+                showSuccess("Poem created.");
+            } else {
+                setError(response.message);
+                setSubmitPoemStatus(REQ_STATUS.FAIL);
+                showError(getErrorMessage(POEM_SEND_ERR));
+            }
+        }).catch(() => setError("Couldn't submit this poem. Try reloading the page."));
+    };
 
     return <div>
         <p className="page-desc">
             {error === "" ?
-                (addingPoem ? <span>Choose a title and press enter to send.</span> : <span>Here's a poem someone started.
+                (addingPoem ? <span>Do your thing.</span> :
+                    (poem == null ? <span>No poems going around at the moment... Start your own!</span> :
+                        <span>Here's a poem someone started.
             You get one shot to add a line. If you choose to skip, the poem flies away to someone else.
-                But if you don't, you can watch it grow under <i>my poems</i>.</span>)
+                But if you don't, you can watch it grow under <i>my poems</i>.</span>))
                 : <span>{error}</span>
             }
         </p>
-        <div className={"write-page-btn-con" + (addingPoem ? ' hidden' : '') }>
+        <div className={"write-page-btn-con" + (addingPoem ? ' hidden' : '')}>
             <button onClick={() => setAddingPoem(true)}>Add Poem</button>
-            <button onClick={() => setRefresh(!refresh)}>Skip Poem</button>
+            {poem == null ? null : <button onClick={getNewPoem}>Skip Poem</button>}
         </div>
-        <PoemPage random={true} editable={true} setParentError={setError} addingPoem={addingPoem} refresh={refresh}/>
+        {addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
+            : (poem != null ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> : null)}
     </div>;
 }
 

@@ -22,6 +22,9 @@ body {
 
     font-family: 'Montserrat', sans-serif;
 }
+.darkmode {
+    color: white;
+}
 
 .material-icons {
     font-family: 'Material Icons';
@@ -55,19 +58,59 @@ body {
 .personal {
     color: #0084ff;
 }
-.poem-title {
-    display: block;
-    font-family: Montserrat, sans-serif;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
+.darkmode .personal{
+    color: #b62fff;
 }
 .small-boxy {
     font-family: Montserrat, sans-serif;
     font-feature-settings: "smcp", "c2sc";
     font-variant: all-small-caps;
     font-size: 17px;
+}
+.small-boxy-btn {
+    padding: 5px 11px;
+    background: none;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: background-color 0.3s, color 0.3s;
+}
+/*.small-boxy-btn:hover {*/
+/*    color: #ffc7dc;*/
+/*    background-color: white;*/
+/*}*/
+.Toastify__toast {
+    font-size: 15px;
+}
+.Toastify__toast--success {
+    background: white !important;
+}
+.Toastify__toast--success .Toastify__toast-body{
+    background: linear-gradient(to left, #ffafcc, #ffc8dd);
+    background: -webkit-linear-gradient(to left, #ffafcc, #ffc8dd);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #ffafcc;
+}
+.Toastify__toast--success .Toastify__close-button {
+    color: #ffc8dd;
+}
+
+.Toastify__toast--info {
+    background: #7bc2ff !important;
+    opacity: 0.8;
+
+}
+
+.Toastify__toast--error {
+    background: white !important;
+    opacity: 0.8;
+}
+.Toastify__toast--error .Toastify__close-button {
+    color: #b6b6b6;
+}
+.Toastify__toast--error .Toastify__toast-body{
+    color: #d53f3f;
 }

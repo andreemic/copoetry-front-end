@@ -5,7 +5,7 @@
 // If not: they are redirected to the login page.
 // Source: https://stackoverflow.com/questions/47476186/when-user-is-not-logged-in-redirect-to-login-reactjs
 import React from 'react'
-import { useAuth0 } from '../react-auth0-spa'
+import { useAuth0 } from '../helpers/react-auth0-spa'
 import { Redirect, Route } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

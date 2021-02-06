@@ -2,8 +2,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { Auth0Provider } from "./react-auth0-spa";
-import config from "./auth_config.json";
+import { Auth0Provider } from "./helpers/react-auth0-spa";
+import config from "./helpers/auth_config.json";
 import history from "./history";
 
 // A function that routes the user to the right place

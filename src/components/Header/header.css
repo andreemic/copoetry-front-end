@@ -34,19 +34,47 @@
 .header .header-logout-label .username {
     font-style: italic;
 }
+
+.header-user-area {
+    display: flex;
+    align-items: center;
+}
 span.header-logout-btn {
-    font-feature-settings: "smcp", "c2sc";
-    font-variant: all-small-caps;
-    background: none;
-    border: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-    border: 2px solid white;
-    padding: 5px 11px;
     margin-left: 10px;
 }
-span.header-logout-btn :hover {
-    text-decoration: line-through;
+
+
+.anonymous-toggler {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("smiling-emoji.png");
+    cursor: pointer;
+    position: relative;
+    margin: 0px 10px;
+}
+.anonymous-toggler.anonymous {
+    background-image: url("sunglasses-emoji.png");
+}
+.anonymous-toggler:hover::after {
+    content: "Anonymous Mode";
+    position: absolute;
+    top: calc(100% + 6px);
+    text-align: center;
+    font-size: 11px;
+    font-family: 'Arial', sans-serif;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: black;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+.anonymous-toggler.anonymous:hover::after {
+    content: "Normal Mode";
 }

@@ -3,7 +3,7 @@ import "./read-page.css"
 import {REQ_STATUS, timestampToShortString} from "../../utils";
 
 import Tilt from 'react-parallax-tilt';
-import {useAuth0} from "../../react-auth0-spa";
+import {useAuth0} from "../../helpers/react-auth0-spa";
 import {Link} from "react-router-dom";
 
 const PREVIEW_LINES_NUM = 12;
@@ -29,7 +29,7 @@ function PoemPreview({poem, linkPrefix}) {
             </div>
             <div className="poem-preview-footer small-boxy">
                 <span className="poem-preview-date">{timestampToShortString(poem.dateCreated)}</span>
-                <span className="poem-preview-creator">started by {poem.creator == user.nickname ?
+                <span className="poem-preview-creator">started by {poem.creator === user.nickname ?
                     <span className='personal'>you</span> : poem.creator}</span>
             </div>
         </Tilt>
