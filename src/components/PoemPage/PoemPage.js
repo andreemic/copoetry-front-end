@@ -9,7 +9,6 @@ function PoemPage() {
     const [poem, setPoem] = useState()
     const api = useApi();
     const [loadPoemStatus, setLoadPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
-
     const {poemid} = useParams();
     const getPoem = () => {
         setLoadPoemStatus(REQ_STATUS.LOADING);
