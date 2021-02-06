@@ -18,6 +18,7 @@ function Header({anonymous, toggleAnonymous}) {
             {/*<span className={"anonymous-toggler " + (anonymous ? "anonymous" : "")} onClick={toggleAnonymous}/>*/}
             <span className="header-logout-label">Not <span className="username">{user.nickname}</span>?</span>
             <span className="small-boxy small-boxy-btn header-logout-btn" onClick={logout}>Log Out</span>
+            <span className="header-logout-mobile material-icons" onClick={logout}>logout</span>
         </span>}
 
     </section>

@@ -32,6 +32,11 @@ export function timestampToShortString(t) {
     let monthName = monthNames[monthIndex];
 
     let year = date.getFullYear();
-
-    return `${day} ${monthName} ${year}`;
+    let now = new Date();
+    if (year === now.getFullYear() && monthIndex === now.getMonth() && day === now.getDate())
+        return `today`
+    else if (year === now.getFullYear())
+        return `${day} ${monthName}`;
+    else
+        return `${day} ${monthName} ${year}`;
 }

@@ -19,6 +19,7 @@
     font-size: 22px;
     font-weight: 600;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .header .header-links a.selected {
@@ -78,3 +79,21 @@ span.header-logout-btn {
 .anonymous-toggler.anonymous:hover::after {
     content: "Normal Mode";
 }
+.header-logout-mobile {
+    display: none;
+}
+@media (max-width: 480px) {
+    .header {
+        padding: 0px 10px;
+    }
+    .header .header-links a {
+        font-size: 18px;
+    }
+    .header-user-area .header-logout-label, .header-logout-btn{
+        display: none;
+    }
+    .header-logout-mobile {
+        display: inline-block;
+    }
+}
+

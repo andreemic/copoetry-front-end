@@ -118,3 +118,66 @@
 .darkmode .poem {
     color: white;
 }
+
+@media (max-width: 480px) {
+    .poem {
+        width: 100%;
+        padding: 0px 10px;
+        box-sizing: border-box;
+        margin: 0px auto;
+    }
+    .poem-input-field {
+        min-width: 100px;
+        width: 90%;
+    }
+    input.poem-title-input {
+        width: 90%;
+    }
+    .write-page-btn-con {
+        width: 100%;
+        position: fixed;
+        bottom: 15%;
+    }
+    .write-page-btn-con button {
+        background: #bde0feff;
+        opacity: 1;
+        border-radius: 3px;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 4%), 0 3px 6px rgb(0 0 0 / 5%);
+        padding: 10px 22px;
+        font-size: 23px;
+    }
+
+    .line .info {
+        left: 10px;
+        filter: none;
+        display: block;
+        opacity: 0;
+        transition: opacity 0.3s;
+        background: #CDB4DB;
+    }
+    .line:hover .info {
+        opacity: 1;
+    }
+    .line .line-content {
+        transition: opacity 0.3s;
+        background: none;
+    }
+    .line:hover .line-content{
+        opacity: 0;
+    }
+
+    .poem-title-con {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .poem-title {
+        margin: 2px;
+    }
+    .poem-title-creator {
+        margin-left: 2px;
+        opacity: 0.4;
+        font-feature-settings: normal;
+        font-variant: normal;
+        font-size: 15px;
+    }
+}

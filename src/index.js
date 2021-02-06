@@ -22,7 +22,7 @@ ReactDOM.render(
     <Auth0Provider
         domain={config.domain}
         client_id={config.clientId}
-        redirect_uri={process.env.REACT_APP_AUTH0_CALLBACK_URL}
+        redirect_uri={"http://localhost:3000"}
         audience={config.audience}
         onRedirectCallback={onRedirectCallback}
     >

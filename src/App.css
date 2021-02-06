@@ -114,3 +114,6 @@ body {
 .Toastify__toast--error .Toastify__toast-body{
     color: #d53f3f;
 }
+@-ms-viewport{
+    width: device-width;
+}

@@ -26,7 +26,7 @@ function PoemPage() {
         });
     }
     useEffect(getPoem, []);
-    return !error ? <Poem poem={poem} setPoem={poem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> :
+    return !error ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> :
         <span className="error">{error}</span>;
 }
 

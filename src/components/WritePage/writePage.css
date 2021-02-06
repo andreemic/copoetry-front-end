@@ -62,3 +62,9 @@ input.poem-title-input {
     background-position: center;
     background-image: url("pen-emoji.png");
 }
+@media (max-width: 480px) {
+    .write-page-btn-con {
+        width: 100%;
+    }
+
+}

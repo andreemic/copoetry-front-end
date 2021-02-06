@@ -28,7 +28,7 @@
 }
 .welcome-login-btn {
     box-shadow: none;
-    background: linear-gradient(135deg, #b3dbfd, #87b9e8);
+    background: linear-gradient(to right, #b3dbfd 0%, #12D8FA  51%, #87b9e8  100%);
     background-size: 400% 400%;
     border: none;
     padding: 12px 25px;
@@ -38,6 +38,7 @@
     font-size: 23px;
     cursor: pointer;
     animation: BGGradient 30s ease infinite;
+    white-space: nowrap;
 }
 
 @keyframes BGGradient {
@@ -45,3 +46,28 @@
     50%{background-position:100% 65%}
     100%{background-position:0% 36%}
 }
+@media (max-width: 480px) {
+    .welcome-con {
+        padding: 0px 10px;
+        box-sizing: border-box;
+    }
+    .welcome-con h2 {
+        font-size: 30px;
+    }
+    .welcome-con p {
+        text-align: center;
+        color: black;
+        opacity: 0.5;
+    }
+    .welcome-login-btn-con {
+        position: fixed;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .welcome-login-btn {
+        font-size: 20px;
+        border-radius: 5px;
+    }
+}
+.btn-grad {background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%)}

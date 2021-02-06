@@ -7,6 +7,7 @@ import {REQ_STATUS, getRequestStatusClass} from "../../utils";
 import {useApi} from "../../helpers/api";
 import {getErrorMessage, LINE_SEND_ERR, showError, showInfo, showSuccess} from "../../helpers/ui-msg";
 import canAddLineToPoem from "../../helpers/canAddLineToPoem";
+import {useMediaQuery} from 'react-responsive'
 
 const MIN_SKEL_LENGTH = 200
 const MAX_SKEL_LENGTH = 400
@@ -24,6 +25,8 @@ function Poem({poem, setPoem, showSkeleton}) {
     const {user} = useAuth0();
     const [linesSkeleton, setLinesSkeleton] = useState([]);
     const [newLineInput, setNewLineInput] = useState("");
+    const isMobile = useMediaQuery({query: '(max-width: 480px)'})
+
 
     const api = useApi();
     const [submitLineStatus, setSubmitLineStatus] = useState(REQ_STATUS.NOT_STARTED);
@@ -69,13 +72,16 @@ function Poem({poem, setPoem, showSkeleton}) {
 
     if (!poem)
         return <div className="poem"/>
+    let contributors = poem.lines.filter(line => line.creator !== poem.creator)
+        .map(line => line.creator === user.nickname ? 'you' : line.creator)
+    if (contributors.length > 4) contributors = contributors.slice(0, 4).concat("...")
 
     return <div className={"poem " + (canAddLineToPoem(poem, user) ? "poem-editable" : "")}>
         <div className="poem-title-con">
             <h3 className="poem-title">{poem.title}</h3>
             <span className="small-boxy poem-title-creator">
-                started by {poem.creator === user.nickname ?
-                <span className='personal'>you</span> : poem.creator}
+                by {poem.creator === user.nickname ? <span className='personal'>you</span> : poem.creator}
+                {contributors.length === 0 ? null : " feat. " + contributors.join(', ')}
             </span>
         </div>
         {showSkeleton ? linesSkeleton :

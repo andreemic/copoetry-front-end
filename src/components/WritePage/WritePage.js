@@ -5,6 +5,8 @@ import {useApi} from "../../helpers/api";
 import Poem from "../Poem/Poem";
 import PoemInput from "./PoemInput";
 import {getErrorMessage, POEM_SEND_ERR, showError, showInfo, showSuccess} from "../../helpers/ui-msg";
+import {useMediaQuery} from "react-responsive";
+import {Link} from "react-router-dom";
 
 function WritePage() {
     const [error, setError] = useState("")
@@ -14,6 +16,7 @@ function WritePage() {
     const [loadPoemStatus, setLoadPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
     const [addingPoem, setAddingPoem] = useState(false);
     const [submitPoemStatus, setSubmitPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
+    const isMobile = useMediaQuery({query: '(max-width: 480px)'})
 
     const getNewPoem = () => {
         setLoadPoemStatus(REQ_STATUS.LOADING);
@@ -47,6 +50,7 @@ function WritePage() {
                 setPoem(response.data);
                 setAddingPoem(false);
                 showSuccess("Poem created.");
+                getNewPoem()
             } else {
                 setError(response.message);
                 setSubmitPoemStatus(REQ_STATUS.FAIL);
@@ -60,9 +64,10 @@ function WritePage() {
             {error === "" ?
                 (addingPoem ? <span>Do your thing.</span> :
                     (poem == null ? <span>No poems going around at the moment... Start your own!</span> :
-                        <span>Here's a poem someone started.
+                        (isMobile ? <span>Here's a poem someone started. Add a line and watch it grow under
+                             <Link to="/my_poems"> my poems</Link> or start your own.</span> : <span>Here's a poem someone started.
             You get one shot to add a line. If you choose to skip, the poem flies away to someone else.
-                But if you don't, you can watch it grow under <i>my poems</i>.</span>))
+                But if you don't, you can watch it grow under <i>my poems</i>.</span>)))
                 : <span>{error}</span>
             }
         </p>
@@ -71,7 +76,8 @@ function WritePage() {
             {poem == null ? null : <button onClick={getNewPoem}>Skip Poem</button>}
         </div>
         {addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
-            : (poem != null ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> : null)}
+            : (poem != null ?
+                <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> : null)}
     </div>;
 }
 

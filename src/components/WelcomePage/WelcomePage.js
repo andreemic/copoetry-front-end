@@ -10,7 +10,6 @@ const PARTICLE_DURATION = 700;
 function WelcomePage() {
     const {isAuthenticated, loginWithRedirect} = useAuth0();
     let [loginClicked, setLoginClicked] = useState();
-    loginWithRedirect()
 
     function loginClick() {
         setLoginClicked(true);
