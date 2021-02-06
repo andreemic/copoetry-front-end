@@ -24,13 +24,10 @@ function App() {
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
-<<<<<<< HEAD
                 <BrowserRouter>
-                    {isAuthenticated && <Header anonymous={anonymous} toggleAnonymous={toggleAnonymous}/>} {/*To-do: better logic for hiding header on Welcome*/}
-=======
-                <BrowserRouter basename={'/copoetry'}>
-                    {isAuthenticated && <Header/>} {/*To-do: better logic for hiding header on Welcome*/}
->>>>>>> f465f6d8bbb5b1b08c1272379c5fc9c49b5ba85d
+                    {isAuthenticated && <Header anonymous={anonymous}
+                                                toggleAnonymous={toggleAnonymous}/>} {/*To-do: better logic for hiding header on Welcome*/}
+
                     <Switch>
                         <Route path='/welcome' component={WelcomePage}/>
                         <PrivateRoute path='/write' component={WritePage}/>
