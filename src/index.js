@@ -2,9 +2,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { Auth0Provider } from "./helpers/react-auth0-spa";
+import {Auth0Provider} from "./helpers/react-auth0-spa";
 import config from "./helpers/auth_config.json";
 import history from "./history";
+import Store from "./helpers/anonymous";
 
 // A function that routes the user to the right place
 // after login
@@ -26,7 +27,9 @@ ReactDOM.render(
         audience={config.audience}
         onRedirectCallback={onRedirectCallback}
     >
-        <App />
+        <Store>
+            <App/>
+        </Store>
     </Auth0Provider>,
     document.getElementById("root")
 );

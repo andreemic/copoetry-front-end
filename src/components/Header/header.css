@@ -53,7 +53,7 @@ span.header-logout-btn {
     background-position: center;
     background-repeat: no-repeat;
     background-image: url("smiling-emoji.png");
-    cursor: pointer;
+    cursor: pointer !important;
     position: relative;
     margin: 0px 10px;
 }
@@ -61,7 +61,7 @@ span.header-logout-btn {
     background-image: url("sunglasses-emoji.png");
 }
 .anonymous-toggler:hover::after {
-    content: "Anonymous Mode";
+    content: "Normal Mode";
     position: absolute;
     top: calc(100% + 6px);
     text-align: center;
@@ -77,10 +77,29 @@ span.header-logout-btn {
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 }
 .anonymous-toggler.anonymous:hover::after {
-    content: "Normal Mode";
+    content: "Anonymous Mode";
 }
 .header-logout-mobile {
     display: none;
+}
+.header a.notif {
+    position: relative;
+}
+.header a.notif::after {
+    content: "";
+    background: #0084ff;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: -8px;
+    border: #ffc7dc 2px solid;
+    box-sizing: border-box;
+    bottom: 9px;
+    display: block;
+    border-radius: 50%;
+}
+.darkmode .header a.notif::after {
+    border-color: #252525;
 }
 @media (max-width: 480px) {
     .header {

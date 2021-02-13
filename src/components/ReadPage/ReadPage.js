@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {REQ_STATUS} from "../../utils";
+import {REQ_STATUS} from "../../helpers/utils";
 import Poem from "../Poem/Poem";
 import Skeleton from "react-loading-skeleton";
 import {useAuth0} from "../../react-auth0-spa";

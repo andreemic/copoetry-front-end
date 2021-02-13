@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {REQ_STATUS} from "../../utils";
+import {REQ_STATUS} from "../../helpers/utils";
 import PoemPreview from "./PoemPreview";
 import Skeleton from "react-loading-skeleton";
-import ReactPaginate from 'react-paginate';
 
 
 const getPoemSkeletons = (n) =>

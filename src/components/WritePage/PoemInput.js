@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {getRequestStatusClass, REQ_STATUS} from "../../utils";
+import {getRequestStatusClass, REQ_STATUS} from "../../helpers/utils";
 
 function PoemInput({onSubmit, submitStatus}) {
     const [titleInput, setTitleInput] = useState("")

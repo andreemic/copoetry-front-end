@@ -24,7 +24,7 @@ export function getRequestStatusClass(status) {
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-export function timestampToShortString(t) {
+export function timestampToShortString(t, withOn=false) {
     let date = new Date(t);
     let day = date.getDate();
 
@@ -35,8 +35,24 @@ export function timestampToShortString(t) {
     let now = new Date();
     if (year === now.getFullYear() && monthIndex === now.getMonth() && day === now.getDate())
         return `today`
+    if (year === now.getFullYear() && monthIndex === now.getMonth() && day === now.getDate()-1)
+        return `yesterday`
     else if (year === now.getFullYear())
-        return `${day} ${monthName}`;
+        return `${withOn ? "on " : ""}${day} ${monthName}`;
     else
-        return `${day} ${monthName} ${year}`;
+        return `${withOn ? "on " : ""}${day} ${monthName} ${year}`;
+}
+
+export function getActiveVotingFromPoem(poem) {
+    if (!poem || !Array.isArray(poem.completionVotings)) return null;
+    let filteredVotings = poem.completionVotings.filter(v => v.state === "active")
+    if (filteredVotings.length < 1) return null;
+    return filteredVotings[0] // More than one at a time not expected
+}
+
+export function getPoemDateCompleted(poem) {
+    if (!poem || !Array.isArray(poem.completionVotings) || poem.completionVotings.length < 1) return null;
+    let filteredVotings = poem.completionVotings.filter(v => v.state === "stopped");
+    if (filteredVotings.length < 1) return null;
+    return filteredVotings[0].dateEnded // More than one at a time not expected
 }

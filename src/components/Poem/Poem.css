@@ -23,7 +23,11 @@
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+    white-space: pre-wrap;
     font-weight: bold;
+}
+.poem-title-creator {
+    margin-left: 10px;
 }
 
 .poem .react-loading-skeleton {
@@ -33,6 +37,7 @@
     display: block;
     opacity: 0.5;
 }
+
 .poem-title-con {
     display: flex;
     align-items: center;
@@ -46,12 +51,15 @@
     cursor: default;
     position: relative;
 }
+
 .line:hover .line-content {
     background: #CDB4DB;
 }
+
 .darkmode .line:hover .line-content {
     background: #a5a5a5;
 }
+
 .line .info {
     position: absolute;
     right: calc(100% + 10px);
@@ -62,13 +70,20 @@
     opacity: 0.7;
     display: none;
 }
+
 .line:hover .info {
     display: block;
 }
 
 .line .line-content {
     padding: 3px 7px;
-    white-space: nowrap;
+    white-space: pre-wrap;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+.line-date {
+    opacity: 0.4;
+    color: black;
 }
 
 .poem-input-field {
@@ -87,6 +102,7 @@
     background-size: 200%;
     transition: all 0.7s ease-out;
 }
+
 .poem-input-field:valid, .poem-input-field:focus {
     background-position: left;
 }
@@ -94,13 +110,14 @@
 .poem-input-field.req-pending {
     background-position: left;
     opacity: 0.6;
-    background: linear-gradient( 90deg,#CDB4DB,#eac4ff,#CDB4DB );
+    background: linear-gradient(90deg, #CDB4DB, #eac4ff, #CDB4DB);
     background-color: #CDB4DB;
     background-size: 200px 100%;
     background-repeat: no-repeat;
     -webkit-animation: animation-16jpnkj 1.2s ease-in-out infinite;
     animation: animation-16jpnkj 1.2s ease-in-out infinite;
 }
+
 .poem-input-field.req-success {
     background-position: right;
 }
@@ -109,35 +126,106 @@
     font-size: 16px;
     font-weight: lighter;
 }
+
 .poem-title.poem-input-field::placeholder {
     font-size: 16px;
     font-weight: lighter;
 }
-@keyframes animation-16jpnkj{0%{background-position:-200px 0;}100%{background-position:calc(200px + 100%) 0;}}
+
+@keyframes animation-16jpnkj {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
 
 .darkmode .poem {
     color: white;
 }
 
+.add-line-input-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: opacity 0.7s ease, visibility 0.7s 0s;
+    visibility: visible;
+    margin-bottom: 40px;
+}
+
+.add-line-input-con.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.add-line-input-con label {
+    display: inline-block;
+    position: relative;
+    font-size: 17px;
+}
+.add-line-input-complete-con {
+    display: flex;
+    align-items: center;
+}
+.add-line-input-con input {
+    margin-right: 10px;
+}
+
+.poem-active-voting {
+    text-align: center;
+    font-style: italic;
+    font-size: 17px;
+    margin: 25px 0px;
+    box-shadow: 0px 0px 20px -10px white;
+    background: #ffffff2e;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}
+.poem-active-voting-choice-con {
+    margin-top: 5px;
+}
+.poem-active-voting-input-con {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-evenly;
+
+}
+.poem-active-voting-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.poem-active-voting-input label {
+    font-size: 15px;
+    font-style: normal;
+}
+
 @media (max-width: 480px) {
     .poem {
         width: 100%;
-        padding: 0px 10px;
+        padding: 0px 10px 120px 10px;
         box-sizing: border-box;
         margin: 0px auto;
     }
+
     .poem-input-field {
         min-width: 100px;
         width: 90%;
     }
+
     input.poem-title-input {
         width: 90%;
     }
+
     .write-page-btn-con {
         width: 100%;
         position: fixed;
-        bottom: 15%;
+        bottom: 100px;
+        transform: translateY(100%);
+        z-index: 50;
     }
+
     .write-page-btn-con button {
         background: #bde0feff;
         opacity: 1;
@@ -155,14 +243,17 @@
         transition: opacity 0.3s;
         background: #CDB4DB;
     }
+
     .line:hover .info {
         opacity: 1;
     }
+
     .line .line-content {
         transition: opacity 0.3s;
         background: none;
     }
-    .line:hover .line-content{
+
+    .line:hover .line-content {
         opacity: 0;
     }
 
@@ -170,14 +261,29 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
     .poem-title {
         margin: 2px;
     }
+
     .poem-title-creator {
         margin-left: 2px;
         opacity: 0.4;
         font-feature-settings: normal;
         font-variant: normal;
         font-size: 15px;
+        white-space: nowrap;
+    }
+    .add-line-input-con label {
+        font-size: 12px;
+    }
+    .add-line-input-con input {
+        margin-right: 5px;
+    }
+
+    .poem-active-voting {
+        box-shadow: none;
+        border-radius: 5px;
+        padding: 10px 15px;
     }
 }

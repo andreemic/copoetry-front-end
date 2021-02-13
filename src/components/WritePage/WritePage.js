@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./writePage.css"
-import {REQ_STATUS} from "../../utils";
+import {REQ_STATUS} from "../../helpers/utils";
 import {useApi} from "../../helpers/api";
 import Poem from "../Poem/Poem";
 import PoemInput from "./PoemInput";
@@ -47,6 +47,7 @@ function WritePage() {
             if (response.status === "success") {
                 // Updated Poem is inside response.data.
                 setSubmitPoemStatus(REQ_STATUS.SUCCESS);
+                setTimeout(() => setSubmitPoemStatus(REQ_STATUS.NOT_STARTED), 700)
                 setPoem(response.data);
                 setAddingPoem(false);
                 showSuccess("Poem created.");

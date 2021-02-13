@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useAuth0} from "../../react-auth0-spa";
-import {REQ_STATUS} from "../../utils";
+import {REQ_STATUS} from "../../helpers/utils";
 import Skeleton from "react-loading-skeleton";
 import PoemPreview from "../ReadPage/PoemPreview";
 const NUMBER_SKELETONS = 5;

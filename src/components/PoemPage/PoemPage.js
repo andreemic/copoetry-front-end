@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {REQ_STATUS} from "../../utils";
+import {REQ_STATUS} from "../../helpers/utils";
 import {useParams} from "react-router-dom";
 import {useApi} from "../../helpers/api";
 import Poem from "../Poem/Poem";

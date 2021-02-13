@@ -26,7 +26,18 @@ a {
     transform-style: preserve-3d;
     cursor: pointer;
     color: black;
-    height: 250px;
+    min-height: 250px;
+    max-height: 350px;
+}
+.poem-preview.voting-active .poem-preview-content {
+    filter: blur(5px);
+}
+.poem-preview.completed {
+    opacity: 0.3;
+    transition: opacity 0.3s ease-out;
+}
+.poem-preview.completed:hover {
+    opacity: 1;
 }
 .darkmode .poem-preview {
     color: white;
@@ -39,7 +50,7 @@ a {
     transition: all .3s ease-out;
 }
 
-.poem-preview:hover h3 {
+.poem-preview:not(.completed):hover h3 {
     transform: translateZ(30px);
 }
 
@@ -55,6 +66,7 @@ a {
 
 li.poem-preview-line {
     display: block;
+    white-space: nowrap;
 }
 
 .poem-preview-content {
@@ -70,8 +82,24 @@ li.poem-preview-line {
     box-sizing: border-box;
     transition: all .3s ease-out;
 }
+.poem-preview-votemsg {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    transform: translate(-50%);
+    width: 90%;
+}
+.poem-preview-votemsg .small-boxy-btn {
+    color: white;
+    width: fit-content;
+    margin: 10px auto;
+}
 
-.poem-preview:hover .poem-preview-footer {
+.poem-preview:not(.completed):hover .poem-preview-footer {
     transform: translateZ(20px);
 }
 

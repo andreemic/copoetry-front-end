@@ -13,20 +13,20 @@ import MyPoemsPage from "./components/PoemsOverview/MyPoemsPage";
 import PoemPage from "./components/PoemPage/PoemPage";
 import WelcomePage from "./components/WelcomePage/WelcomePage"
 import Background from "./components/Background/Background";
-import {useApi} from "./helpers/api";
+import {Context} from "./helpers/anonymous"
+import React, {useContext} from "react";
 
 function App() {
     const {isAuthenticated} = useAuth0();
     const {loading} = useAuth0();
-    const {anonymous, toggleAnonymous} = useApi();
+    const [state, dispatch] = useContext(Context);
 
-    return <div className={"app-con " + (anonymous ? "darkmode" : "")}>
+    return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
                 <BrowserRouter>
-                    {isAuthenticated && <Header anonymous={anonymous}
-                                                toggleAnonymous={toggleAnonymous}/>} {/*To-do: better logic for hiding header on Welcome*/}
+                    {isAuthenticated && <Header/>}
 
                     <Switch>
                         <Route path='/welcome' component={WelcomePage}/>
