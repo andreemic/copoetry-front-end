@@ -19,7 +19,7 @@ import React, {useContext} from "react";
 function App() {
     const {isAuthenticated} = useAuth0();
     const {loading} = useAuth0();
-    const [state, dispatch] = useContext(Context);
+    const [state] = useContext(Context);
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
         <Background/>
