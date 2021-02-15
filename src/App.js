@@ -14,6 +14,9 @@ import PoemPage from "./components/PoemPage/PoemPage";
 import WelcomePage from "./components/WelcomePage/WelcomePage"
 import Background from "./components/Background/Background";
 import {Context} from "./helpers/anonymous"
+import Feedback from "feeder-react-feedback"; // import Feedback component
+import "feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
+
 import React, {useContext} from "react";
 
 function App() {
@@ -22,6 +25,7 @@ function App() {
     const [state] = useContext(Context);
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
+        <Feedback projectId="602adc27a8a0030004764598" primaryColor={"#fdc6db"} hoverBorderColor={"#bde0feff"} zIndex={"51"} />
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">

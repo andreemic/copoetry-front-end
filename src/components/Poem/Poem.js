@@ -39,7 +39,7 @@ function Poem({poem, setPoem, showSkeleton}) {
     const [completePoemInput, setCompletePoemInput] = useState(false);
 
 
-    const api = useApi();
+    let api = useApi();
     const [submitLineStatus, setSubmitLineStatus] = useState(REQ_STATUS.NOT_STARTED);
     const activeVoting = getActiveVotingFromPoem(poem)
     useEffect(() => {
@@ -120,6 +120,7 @@ function Poem({poem, setPoem, showSkeleton}) {
                 {contributors.length === 0 ? null : " feat. " + contributors.join(', ')}
             </span>
         </div>
+        <div className={"poem-main"}>
         {showSkeleton ? linesSkeleton :
             poem.lines && poem.lines.map((line, index) =>
                 <Line key={"line-" + poem.id + index} line={line} authored={line.creator === user.nickname}/>
@@ -168,6 +169,7 @@ function Poem({poem, setPoem, showSkeleton}) {
                     </div>
                 </div>}
         </div>}
+        </div>
 
         <div className={"poem-footer small-boxy"}>
                     <span className="poem-date">

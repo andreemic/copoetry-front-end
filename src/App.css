@@ -117,7 +117,12 @@ body {
 @-ms-viewport{
     width: device-width;
 }
-
+.frf-modal-feedback-types *, .frf-modal-button * {
+    color: black !important;
+}
+.frf-modal-feedback-selected {
+    background-color: white !important;
+}
 .small-label-subtext {
     display: block;
     font-size: 14px;
@@ -131,11 +136,18 @@ body {
 }
 
 @media (max-width: 480px) {
+    html, body, .app-con, #root, .app-wrapper {
+        height: 100%;
+    }
     .Toastify__toast {
         margin: 10px;
     }
     .small-label-subtext {
         font-size: 12px;
         left: 5px;
+    }
+    .app-wrapper {
+        display: flex;
+        flex-direction: column;
     }
 }

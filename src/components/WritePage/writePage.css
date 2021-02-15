@@ -63,8 +63,37 @@ input.poem-title-input {
     background-image: url("pen-emoji.png");
 }
 @media (max-width: 480px) {
+    .write-page {
+        display: flex;
+        height: calc(100vh - 60px);
+        flex-direction: column;
+    }
     .write-page-btn-con {
         width: 100%;
+    }
+
+    .write-page-btn-con {
+        width: 100%;
+        z-index: 50;
+        padding-bottom: 20px;
+    }
+
+    .write-page-btn-con button {
+        background: #ffffff12;
+        opacity: 1;
+        border-radius: 3px;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 4%), 0 3px 6px rgb(0 0 0 / 5%);
+        padding: 3px 20px 8px 20px;
+        font-size: 23px;
+    }
+    .add-poem-btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        cursor: pointer;
+        transition: opacity 0.7s ease, visibility 0.7s 0s;
+        visibility: visible;
+        padding-right: 20px;
     }
 
 }

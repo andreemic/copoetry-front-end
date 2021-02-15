@@ -6,6 +6,8 @@
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
     "@auth0/auth0-spa-js": "^1.13.6",
+    "@sentry/react": "^6.1.0",
+    "@sentry/tracing": "^6.1.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
@@ -14,6 +16,7 @@
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "axios": "^0.21.1",
+    "feeder-react-feedback": "0.0.6",
     "materialize-css": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -53,8 +56,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://copoetry-dev-backend:10000/",
+  "proxy": "http://localhost:10000/",
   "devDependencies": {
+    "@sentry/webpack-plugin": "^1.14.0",
     "css-zero": "^0.2.2"
   }
 }

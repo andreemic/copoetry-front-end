@@ -60,7 +60,7 @@ function WritePage() {
         }).catch(() => setError("Couldn't submit this poem. Try reloading the page."));
     };
 
-    return <div>
+    return <div className={"write-page"}>
         <p className="page-desc">
             {error === "" ?
                 (addingPoem ? <span>Do your thing.</span> :

@@ -106,3 +106,8 @@ li.poem-preview-line {
 span.poem-preview-creator {
     float: right;
 }
+@media (max-width: 480px) {
+    .poems-overview > span{
+        text-align: center;
+    }
+}

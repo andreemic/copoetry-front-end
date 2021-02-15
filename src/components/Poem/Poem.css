@@ -204,9 +204,17 @@
 @media (max-width: 480px) {
     .poem {
         width: 100%;
-        padding: 0px 10px 120px 10px;
+        padding: 0px 10px 10px 10px;
         box-sizing: border-box;
         margin: 0px auto;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+    .poem-main {
+        flex-grow: 1;
+        overflow: auto;
     }
 
     .poem-input-field {
@@ -216,23 +224,6 @@
 
     input.poem-title-input {
         width: 90%;
-    }
-
-    .write-page-btn-con {
-        width: 100%;
-        position: fixed;
-        bottom: 100px;
-        transform: translateY(100%);
-        z-index: 50;
-    }
-
-    .write-page-btn-con button {
-        background: #bde0feff;
-        opacity: 1;
-        border-radius: 3px;
-        box-shadow: 0 3px 6px rgb(0 0 0 / 4%), 0 3px 6px rgb(0 0 0 / 5%);
-        padding: 10px 22px;
-        font-size: 23px;
     }
 
     .line .info {
@@ -272,7 +263,6 @@
         font-feature-settings: normal;
         font-variant: normal;
         font-size: 15px;
-        white-space: nowrap;
     }
     .add-line-input-con label {
         font-size: 12px;
