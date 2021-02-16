@@ -32,6 +32,4 @@ jobs:
         local: build
         remote: copoetry/front-end/build
         host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.PASSWORD }}
-        privateKey: ${{ secrets.PRIVATE_KEY}}
+        privateKey: ${{ secrets.PRIVATEKEY}}
