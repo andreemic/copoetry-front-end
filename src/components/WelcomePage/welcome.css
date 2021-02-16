@@ -40,7 +40,9 @@
     animation: BGGradient 30s ease infinite;
     white-space: nowrap;
 }
-
+.app-con.darkmode p {
+    color: white;
+}
 @keyframes BGGradient {
     0%{background-position:0% 36%}
     50%{background-position:100% 65%}
@@ -68,6 +70,10 @@
     .welcome-login-btn {
         font-size: 20px;
         border-radius: 5px;
+    }
+
+    .app-con.darkmode .welcome-con p {
+        color: white !important;
     }
 }
 .btn-grad {background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%)}
