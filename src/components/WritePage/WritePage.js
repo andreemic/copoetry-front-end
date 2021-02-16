@@ -73,7 +73,8 @@ function WritePage() {
             }
         </p>
         <div className={"write-page-btn-con" + (addingPoem ? ' hidden' : '')}>
-            <button onClick={() => setAddingPoem(true)}>Add Poem</button>
+            {!addingPoem && <button onClick={() => setAddingPoem(true)}>Add Poem</button>}
+            {addingPoem && <button onClick={() => setAddingPoem(false)}>Back</button>}
             {poem == null ? null : <button onClick={getNewPoem}>Skip Poem</button>}
         </div>
         {addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
