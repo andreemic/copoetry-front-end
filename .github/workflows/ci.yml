@@ -22,13 +22,6 @@ jobs:
     env: 
       REACT_APP_BASEURL: "https://andreev.work/copoetry"
     steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        key: ${{ secrets.PRIVATE_KEY }}
-        username: ${{ secrets.USER }}
-        script: pwd
     - uses: actions/checkout@v2
     - name: Build w/ Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
