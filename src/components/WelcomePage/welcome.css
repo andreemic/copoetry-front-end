@@ -60,7 +60,7 @@
         opacity: 0.5;
     }
     .welcome-login-btn-con {
-        position: fixed;
+        position: fixed !important;
         bottom: 15%;
         left: 50%;
         transform: translateX(-50%);
