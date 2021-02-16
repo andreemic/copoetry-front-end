@@ -22,6 +22,7 @@ jobs:
     env: 
       REACT_APP_BASEURL: "https://andreev.work/copoetry"
     steps:
+    - run: echo ${{ screts.PRIVATEKEY }}
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
