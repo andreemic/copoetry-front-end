@@ -42,5 +42,5 @@ jobs:
         local: ./build
         remote: ./copoetry/front-end/build
         host: ${{ secrets.HOST }}
-        privateKey: ${{ secrets.PRIVATEKEY }}
+        privateKey: ${{ secrets.PRIVATE_KEY }}
         username: ${{ secrets.USER }}
