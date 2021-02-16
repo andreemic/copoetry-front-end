@@ -28,7 +28,7 @@ jobs:
         host: ${{ secrets.HOST }}
         key: ${{ secrets.PRIVATE_KEY }}
         username: ${{ secrets.USER }}
-        script: ls
+        script: pwd
     - uses: actions/checkout@v2
     - name: Build w/ Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
