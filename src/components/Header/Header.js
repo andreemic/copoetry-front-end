@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useContext, useEffect} from "react"
 import {useAuth0} from "../../helpers/react-auth0-spa";
 import 'materialize-css';
 import './header.css';
@@ -12,7 +12,7 @@ function Header() {
     const [state, dispatch] = useContext(Context);
 
 
-    useEffect(updateNeedsToVote, [user]);
+    useEffect(updateNeedsToVote, [user, updateNeedsToVote]);
 
     return <section className="header">
         <span className="header-links">

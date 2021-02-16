@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {REQ_STATUS} from "../../helpers/utils";
 import PoemPreview from "./PoemPreview";
 import Skeleton from "react-loading-skeleton";
@@ -17,9 +17,9 @@ function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
     const [poemSkeletons, setPoemSkeletons] = useState([])
 
     // implement infinite scrolling with intersection observer
-    let bottomBoundaryRef = useRef(null);
-    const scrollObserver = useCallback(
-        node => {
+    // let bottomBoundaryRef = useRef(null);
+    // const scrollObserver = useCallback(
+        //node => {
             // new IntersectionObserver(entries => {
             //     entries.forEach(en => {
             //         if (en.intersectionRatio > 0) {
@@ -32,35 +32,36 @@ function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
             //         }
             //     });
             // }).observe(node);
-        },
-        [setPoems]
-    );
+        // },
+        // [setPoems]
+    // );/
     // useEffect(() => {
     //     if (bottomBoundaryRef.current) {
     //         scrollObserver(bottomBoundaryRef.current);
     //     }
     // }, [scrollObserver, bottomBoundaryRef]);
 
-    const getPoemsInit = () => {
-        setLoadPoemsStatus(REQ_STATUS.LOADING)
-        getPoemsFunction(POEMS_PER_PAGE, 0).then(response => {
-            if (response.status === "success") {
-                setLoadPoemsStatus(REQ_STATUS.SUCCESS);
-                setPoems(response.data);
-            } else {
-                setLoadPoemsStatus(REQ_STATUS.FAIL);
-                setError(response.message)
-            }
-        }).catch(e => {
-            console.error(e);
-            setError("Can't get poems right now.")
-        });
-    }
+
 
     useEffect(() => {
-        getPoemsInit();
+        const getPoemsInit = () => {
+            setLoadPoemsStatus(REQ_STATUS.LOADING)
+            getPoemsFunction(POEMS_PER_PAGE, 0).then(response => {
+                if (response.status === "success") {
+                    setLoadPoemsStatus(REQ_STATUS.SUCCESS);
+                    setPoems(response.data);
+                } else {
+                    setLoadPoemsStatus(REQ_STATUS.FAIL);
+                    setError(response.message)
+                }
+            }).catch(e => {
+                console.error(e);
+                setError("Can't get poems right now.")
+            });
+        };
+        getPoemsInit()
         setPoemSkeletons(getPoemSkeletons(POEMS_PER_PAGE));
-    }, []);
+    }, [getPoemsFunction]);
 
     return <div className="poems-overview">
         {(loadPoemsStatus <= REQ_STATUS.LOADING) ? poemSkeletons :
@@ -70,7 +71,7 @@ function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
             : <span>No poems here... You should go write some!</span>)
             : <span className="error">{error}</span>}
 
-        <div id='page-bottom-boundary' ref={bottomBoundaryRef}/>
+        {/*<div id='page-bottom-boundary' ref={bottomBoundaryRef}/>*/}
     </div>
 }
 

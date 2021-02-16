@@ -1,5 +1,5 @@
 import {useAuth0} from "./react-auth0-spa";
-import {useCallback, useContext, useEffect, useRef, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Context} from "./anonymous";
 
 const defaultResponse = {
@@ -7,7 +7,7 @@ const defaultResponse = {
     message: "Trouble communicating with our servers."
 }
 
-function useApi(anonymous) {
+function useApi() {
     // Function for getting the Access Token
     const {getTokenSilently, user} = useAuth0()
     const [registered, setRegistered] = useState();
@@ -16,7 +16,7 @@ function useApi(anonymous) {
     // If any of these requests return null, communication with the server was unsuccessful.
     // (invalid auth token, blabla)
     // To-Do: Pass statuses down to the caller to reflect particular statuses in UI.
-    const makeRequest = async (path, method = 'GET', body = undefined, addAnonymous = false) => {
+    const makeRequest = useCallback( async (path, method = 'GET', body = undefined, addAnonymous = false) => {
         let token = await getTokenSilently();
         try {
             let params = {
@@ -30,7 +30,7 @@ function useApi(anonymous) {
                 if (addAnonymous) body = {...body, anonymous: state.anonymous};
                 params['body'] = JSON.stringify(body);
             }
-            const response = await fetch(path, params);
+            const response = await fetch(process.env.REACT_APP_BASEURL + path, params);
             let responseBody = await response.json();
             if (responseBody.status === undefined) return defaultResponse; // Auth errors result in a string.
 
@@ -38,12 +38,12 @@ function useApi(anonymous) {
         } catch (e) {
             return defaultResponse;
         }
-    }
+    }, [getTokenSilently, state.anonymous]);
 
 
     const getPoemByID = useCallback(async (poemId) =>
             makeRequest("/api/get/poem/" + poemId)
-        , [])
+        , [makeRequest])
 
     const submitLine = async (poemId, content, beginCompletionVote) =>
         makeRequest('/api/add/line', 'POST', {poemId, content, beginCompletionVote}, true)
@@ -51,7 +51,7 @@ function useApi(anonymous) {
 
     const getRandomPoem = useCallback(async () =>
             makeRequest('/api/get/random-poem')
-        , [])
+        , [makeRequest])
 
     const submitPoem = async (title, firstLine) => {
         if (!title || !title.length || title.length === 0) throw new Error("Trying to send titleless Poem.");
@@ -60,22 +60,22 @@ function useApi(anonymous) {
 
     const getNeedsToVote = useCallback(async () =>
             makeRequest('/api/user/needs-to-vote')
-        , [])
+        , [makeRequest])
 
     const getUserPoems = useCallback(async (limit, offset) =>
             makeRequest(`/api/get/my-poems?limit=${limit}&offset=${offset}`)
-        , [])
+        , [makeRequest])
 
     const getPoems = useCallback(async (limit, offset) =>
             makeRequest(`/api/get/poems/all?limit=${limit}&offset=${offset}`)
-        , [])
+        , [makeRequest])
 
     const register = useCallback(async () =>
         user !== undefined && makeRequest("/api/user/register", 'POST', {nickname: user.nickname})
-        , []);
+        , [makeRequest, user]);
     const castCompletionVote = useCallback(async (votingId, forCompletingPoem) =>
             makeRequest("/api/poem/completion-vote", 'POST', {forCompletingPoem, votingId})
-        , [])
+        , [makeRequest])
     const updateNeedsToVote = () => {
         getNeedsToVote().then(result => {
             let needsToVote = false
@@ -95,7 +95,7 @@ function useApi(anonymous) {
                 setRegistered(true);
             }
         });
-    }, [user]);
+    }, [user, register, registered]);
 
     return {
         getPoemByID,

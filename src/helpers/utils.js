@@ -18,8 +18,9 @@ export function getRequestStatusClass(status) {
             return "req-success"
         case REQ_STATUS.FAIL:
             return "req-fail"
+        default:
+            return ""
     }
-    return ""
 }
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",

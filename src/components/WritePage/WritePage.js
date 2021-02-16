@@ -4,7 +4,7 @@ import {REQ_STATUS} from "../../helpers/utils";
 import {useApi} from "../../helpers/api";
 import Poem from "../Poem/Poem";
 import PoemInput from "./PoemInput";
-import {getErrorMessage, POEM_SEND_ERR, showError, showInfo, showSuccess} from "../../helpers/ui-msg";
+import {getErrorMessage, POEM_SEND_ERR, showError, showSuccess} from "../../helpers/ui-msg";
 import {useMediaQuery} from "react-responsive";
 import {Link} from "react-router-dom";
 
@@ -37,7 +37,7 @@ function WritePage() {
             setError("Can't load this poem.")
         });
     }
-    useEffect(getNewPoem, []);
+    useEffect(getNewPoem, [getNewPoem]);
 
 
     const onSubmitPoem = (title, firstLine) => {

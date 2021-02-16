@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 import {Slide, ToastContainer} from 'react-toastify';
@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./components/PrivateRoute";
 import Header from './components/Header/Header'
 import WritePage from './components/WritePage/WritePage'
-import ReadAllPoemsPage from './components/PoemsOverview/ReadAllPoemsPage'
 import MyPoemsPage from "./components/PoemsOverview/MyPoemsPage";
 import PoemPage from "./components/PoemPage/PoemPage";
 import WelcomePage from "./components/WelcomePage/WelcomePage"

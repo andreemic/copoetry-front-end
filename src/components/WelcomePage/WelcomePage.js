@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import {useAuth0} from "../../helpers/react-auth0-spa";
 import {Redirect} from "react-router-dom"
-import {Button} from "react-materialize";
 import ParticleEffectButton from 'react-particle-effect-button'
 
 import './welcome.css'

@@ -11,9 +11,8 @@ import {
     getPoemDateCompleted
 } from "../../helpers/utils";
 import {useApi} from "../../helpers/api";
-import {getErrorMessage, LINE_SEND_ERR, showError, showInfo, showSuccess} from "../../helpers/ui-msg";
+import {getErrorMessage, LINE_SEND_ERR, showError, showSuccess} from "../../helpers/ui-msg";
 import canAddLineToPoem from "../../helpers/canAddLineToPoem";
-import {useMediaQuery} from 'react-responsive'
 
 const MIN_SKEL_LENGTH = 200
 const MAX_SKEL_LENGTH = 400
@@ -35,7 +34,6 @@ function Poem({poem, setPoem, showSkeleton}) {
     const {user} = useAuth0();
     const [linesSkeleton, setLinesSkeleton] = useState([]);
     const [newLineInput, setNewLineInput] = useState("");
-    const isMobile = useMediaQuery({query: '(max-width: 480px)'})
     const [completePoemInput, setCompletePoemInput] = useState(false);
 
 

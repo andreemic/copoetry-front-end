@@ -1,6 +1,6 @@
-import React, {useState} from "react"
+import React from "react"
 import "./read-page.css"
-import {REQ_STATUS, timestampToShortString, getActiveVotingFromPoem} from "../../helpers/utils";
+import {timestampToShortString, getActiveVotingFromPoem} from "../../helpers/utils";
 
 import Tilt from 'react-parallax-tilt';
 import {useAuth0} from "../../helpers/react-auth0-spa";

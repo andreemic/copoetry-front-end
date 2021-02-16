@@ -25,7 +25,7 @@ function PoemPage() {
             setError("Can't load this poem.")
         });
     }
-    useEffect(getPoem, []);
+    useEffect(getPoem, [api, poemid]);
     return !error ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> :
         <span className="error">{error}</span>;
 }
