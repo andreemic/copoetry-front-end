@@ -1,5 +1,5 @@
 // src/index.js
-import React from "react";
+import React, {Suspense} from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {Auth0Provider} from "./helpers/react-auth0-spa";
@@ -10,6 +10,7 @@ import Store from "./helpers/anonymous";
 
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import {ThreeDots} from "@agney/react-loading";
 
 
 Sentry.init({
@@ -34,6 +35,7 @@ const onRedirectCallback = appState => {
 // Wrap App in the Auth0Provider component
 // The domain and client_id values will be found in your Auth0 dashboard
 ReactDOM.render(
+    <Suspense fallback={<ThreeDots className="big-loader" width="100"/>}>
     <Auth0Provider
         domain={config.domain}
         client_id={config.clientId}
@@ -44,6 +46,7 @@ ReactDOM.render(
         <Store>
             <App/>
         </Store>
-    </Auth0Provider>,
+    </Auth0Provider>
+    </Suspense>,
     document.getElementById("root")
 );

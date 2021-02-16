@@ -57,7 +57,7 @@ function App() {
                 </BrowserRouter>
             </div>
         }
-        <Suspense fallback={null}>
+        <Suspense fallback={<span/>}>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
