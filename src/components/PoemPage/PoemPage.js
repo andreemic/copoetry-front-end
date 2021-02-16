@@ -7,12 +7,12 @@ import Poem from "../Poem/Poem";
 function PoemPage() {
     const [error, setError] = useState("")
     const [poem, setPoem] = useState()
-    const api = useApi();
+    const {getPoemByID} = useApi();
     const [loadPoemStatus, setLoadPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
     const {poemid} = useParams();
     const getPoem = () => {
         setLoadPoemStatus(REQ_STATUS.LOADING);
-        api.getPoemByID(poemid).then(response => {
+        getPoemByID(poemid).then(response => {
             if (response.status === "success") {
                 setLoadPoemStatus(REQ_STATUS.SUCCESS);
                 setPoem(response.data);
@@ -25,7 +25,7 @@ function PoemPage() {
             setError("Can't load this poem.")
         });
     }
-    useEffect(getPoem, [api, poemid]);
+    useEffect(getPoem, [getPoemByID, poemid]);
     return !error ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> :
         <span className="error">{error}</span>;
 }

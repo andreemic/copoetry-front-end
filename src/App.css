@@ -120,6 +120,11 @@ body {
 .frf-modal-feedback-types *, .frf-modal-button * {
     color: black !important;
 }
+.frf-modal-button { background-color: #ffffff !important;}
+.frf-modal-content-container {
+    padding: 20px;
+}
+
 .frf-modal-feedback-selected {
     background-color: white !important;
 }

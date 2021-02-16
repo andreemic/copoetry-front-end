@@ -1,5 +1,5 @@
 import {useAuth0} from "./react-auth0-spa";
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {Context} from "./anonymous";
 
 const defaultResponse = {
@@ -7,10 +7,9 @@ const defaultResponse = {
     message: "Trouble communicating with our servers."
 }
 
-function useApi() {
+function useApi(callback) {
     // Function for getting the Access Token
     const {getTokenSilently, user} = useAuth0()
-    const [registered, setRegistered] = useState();
     const [state, dispatch] = useContext(Context);
 
     // If any of these requests return null, communication with the server was unsuccessful.
@@ -30,7 +29,8 @@ function useApi() {
                 if (addAnonymous) body = {...body, anonymous: state.anonymous};
                 params['body'] = JSON.stringify(body);
             }
-            const response = await fetch(process.env.REACT_APP_BASEURL + path, params);
+            console.log(process.env.REACT_APP_API_BASEURL + path)
+            const response = await fetch(process.env.REACT_APP_API_BASEURL + path, params);
             let responseBody = await response.json();
             if (responseBody.status === undefined) return defaultResponse; // Auth errors result in a string.
 
@@ -76,7 +76,7 @@ function useApi() {
     const castCompletionVote = useCallback(async (votingId, forCompletingPoem) =>
             makeRequest("/api/poem/completion-vote", 'POST', {forCompletingPoem, votingId})
         , [makeRequest])
-    const updateNeedsToVote = () => {
+    const updateNeedsToVote = useCallback(() => {
         getNeedsToVote().then(result => {
             let needsToVote = false
             if (result.status === "success") {
@@ -84,18 +84,17 @@ function useApi() {
             }
             dispatch({type: "SET_NEEDS_TO_VOTE", payload: needsToVote});
         }).catch(console.error);
-    }
+    }, [getNeedsToVote, dispatch]);
 
     // Register with API asap.
     useEffect(() => {
-        console.log(registered)
-        if (registered) return;
+        if (state.registered) return;
         register().then(resp => {
             if (resp.status === "success") {
-                setRegistered(true);
+                dispatch({type: "SET_REGISTERED", payload: true});
             }
         });
-    }, [user, register, registered]);
+    }, [state.registered, dispatch, register]);
 
     return {
         getPoemByID,

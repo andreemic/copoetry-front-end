@@ -21,13 +21,19 @@ const AnonReducer = (state, action) => {
                 ...state,
                 needsToVote: action.payload
             };
+        case 'SET_REGISTERED':
+            return {
+                ...state,
+                registered: action.payload
+            }
         default:
             return state;
     }
 };
 const initialState = {
     anonymous: JSON.parse(window.localStorage.getItem(ANON_STORAGE_KEY)),
-    needsToVote: false
+    needsToVote: false,
+    registered: false
 };
 const Store = ({children}) => {
     const [state, dispatch] = useReducer(AnonReducer, initialState);

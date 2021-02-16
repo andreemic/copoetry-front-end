@@ -104,6 +104,7 @@ span.header-logout-btn {
 @media (max-width: 480px) {
     .header {
         padding: 0px 10px;
+        flex-shrink: 0;
     }
     .header .header-links a {
         font-size: 18px;

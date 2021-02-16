@@ -215,6 +215,7 @@
     .poem-main {
         flex-grow: 1;
         overflow: auto;
+        padding-bottom: 35px;
     }
 
     .poem-input-field {
@@ -263,6 +264,7 @@
         font-feature-settings: normal;
         font-variant: normal;
         font-size: 15px;
+        margin-bottom: 5px;
     }
     .add-line-input-con label {
         font-size: 12px;

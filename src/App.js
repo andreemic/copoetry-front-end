@@ -24,7 +24,7 @@ function App() {
     const [state] = useContext(Context);
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
-        <Feedback projectId="602adc27a8a0030004764598" primaryColor={"#fdc6db"} hoverBorderColor={"#bde0feff"} zIndex={"51"} />
+        {isAuthenticated && <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ?  "#000" : "#fdc6db"} hoverBorderColor={"#bde0feff"} zIndex={"51"} />}
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">

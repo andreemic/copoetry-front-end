@@ -37,7 +37,7 @@ function WritePage() {
             setError("Can't load this poem.")
         });
     }
-    useEffect(getNewPoem, [getNewPoem]);
+    useEffect(getNewPoem, [getRandomPoem]);
 
 
     const onSubmitPoem = (title, firstLine) => {
