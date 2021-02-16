@@ -21,6 +21,7 @@ jobs:
 
     env: 
       REACT_APP_BASEURL: "https://andreev.work/copoetry"
+      REACT_APP_API_BASEURL: "https://andreev.work/copoetry/api"
     steps:
     - uses: actions/checkout@v2
     - name: Build w/ Node.js ${{ matrix.node-version }}
