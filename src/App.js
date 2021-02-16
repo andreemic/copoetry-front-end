@@ -1,22 +1,30 @@
+import React, {lazy, Suspense, useContext} from "react";
 import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
-import {Slide, ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-import PrivateRoute from "./components/PrivateRoute";
-import Header from './components/Header/Header'
-import WritePage from './components/WritePage/WritePage'
-import MyPoemsPage from "./components/PoemsOverview/MyPoemsPage";
-import PoemPage from "./components/PoemPage/PoemPage";
-import WelcomePage from "./components/WelcomePage/WelcomePage"
+import 'react-toastify/dist/ReactToastify.css';
 import Background from "./components/Background/Background";
 import {Context} from "./helpers/anonymous"
-import Feedback from "feeder-react-feedback"; // import Feedback component
 import "feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
+import PrivateRoute from "./components/PrivateRoute";
+import Header from './components/Header/Header'
 
-import React, {useContext} from "react";
+const ToastContainer = lazy(async () => {
+    const {ToastContainer} = await import('react-toastify');
+    return {default: ToastContainer};
+});
+const Slide = lazy(async () => {
+    const {Slide} = await import('react-toastify');
+    return {default: Slide};
+});
+const Feedback = lazy(async () => import("feeder-react-feedback"))
+
+const WritePage = lazy(() => import('./components/WritePage/WritePage'))
+const MyPoemsPage = lazy(() => import('./components/PoemsOverview/MyPoemsPage'))
+const PoemPage = lazy(() => import("./components/PoemPage/PoemPage"));
+const WelcomePage = lazy(() => import("./components/WelcomePage/WelcomePage"))
 
 function App() {
     const {isAuthenticated} = useAuth0();
@@ -24,39 +32,45 @@ function App() {
     const [state] = useContext(Context);
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
-        {isAuthenticated && <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ?  "#000" : "#fdc6db"} hoverBorderColor={"#bde0feff"} zIndex={"51"} />}
+        {isAuthenticated &&
+        <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ? "#000" : "#fdc6db"}
+                  hoverBorderColor={"#bde0feff"} zIndex={"51"}/>}
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
                 <BrowserRouter>
-                    {isAuthenticated && <Header/>}
+                    <Suspense fallback={<ThreeDots className="big-loader" width="100"/>}>
+                        {isAuthenticated && <Header/>}
 
-                    <Switch>
-                        <Route path='/welcome' component={WelcomePage}/>
-                        <PrivateRoute path='/write' component={WritePage}/>
+                        <Switch>
+                            <Route path='/welcome' component={WelcomePage}/>
+                            <PrivateRoute path='/write' component={WritePage}/>
 
-                        {/*<PrivateRoute path='/read/:poemid' component={PoemPage}/>
+                            {/*<PrivateRoute path='/read/:poemid' component={PoemPage}/>
                         <PrivateRoute path='/read' component={ReadAllPoemsPage}/>*/}
 
-                        <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
-                        <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
-                        <Route component={isAuthenticated ? WritePage : WelcomePage}/>
-                    </Switch>
+                            <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
+                            <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
+                            <Route component={isAuthenticated ? WritePage : WelcomePage}/>
+                        </Switch>
+                    </Suspense>
                 </BrowserRouter>
             </div>
         }
-        <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            transition={Slide}
-        />
+        <Suspense fallback={null}>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                transition={Slide}
+            />
+        </Suspense>
     </div>;
 }
 

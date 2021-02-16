@@ -24,8 +24,7 @@ function PoemInput({onSubmit, submitStatus}) {
                    value={firstLineInput} onChange={handleLineInput}
                    placeholder="First line. Something nice. Something one can build upon..."
                    type="text" onKeyDown={handleKeyDown} autoFocus={true}/></h3>
-        <span className={"add-poem-btn " + (inputsValid() ? "" : "hidden")} onClick={submit}>Start Poem<span
-            className="pen-emoji"/>️</span>
+        <span className={"add-poem-btn " + (inputsValid() ? "" : "hidden")} onClick={submit}>Start Poem<span className="pen-emoji"/>️</span>
     </div>
 }
 

@@ -16,7 +16,6 @@
     "@types/react-dom": "^17.0.1",
     "axios": "^0.21.1",
     "feeder-react-feedback": "0.0.6",
-    "materialize-css": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loading-skeleton": "^2.1.1",
@@ -57,7 +56,10 @@
   },
   "proxy": "http://localhost:10000",
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@sentry/webpack-plugin": "^1.14.0",
-    "css-zero": "^0.2.2"
+    "cra-bundle-analyzer": "^0.1.0",
+    "css-zero": "^0.2.2",
+    "webpack-bundle-analyzer": "^4.4.0"
   }
 }

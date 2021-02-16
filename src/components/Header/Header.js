@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react"
 import {useAuth0} from "../../helpers/react-auth0-spa";
-import 'materialize-css';
+
 import './header.css';
 import {NavLink} from "react-router-dom";
 import {useApi} from "../../helpers/api";
