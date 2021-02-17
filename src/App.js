@@ -1,6 +1,6 @@
 import React, {lazy, Suspense, useContext} from "react";
 import './App.css';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 
@@ -12,6 +12,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Header from './components/Header/Header'
 import {ErrorBoundary} from "@sentry/react";
 import SomethingWentWrong from "./components/SomethingWentWrong/SomethingWentWrong";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 const ToastContainer = lazy(async () => {
     const {ToastContainer} = await import('react-toastify');
@@ -46,14 +47,13 @@ function App() {
                         <ErrorBoundary fallback={SomethingWentWrong}>
 
                             <Switch>
-                                <Route path='/welcome' component={WelcomePage}/>
-                                <PrivateRoute path='/write' component={WritePage}/>
+                                <Route exact path='/welcome' component={WelcomePage}/>
+                                <PrivateRoute exact path='/write' component={WritePage}/>
 
-                                <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
-                                <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
-                                <Route>
-                                    <Redirect to={isAuthenticated ? "/write" : "/welcome"}/>
-                                </Route>
+                                <PrivateRoute exact strict path='/my_poems/:poemid' component={PoemPage}/>
+                                <PrivateRoute exact path='/my_poems' component={MyPoemsPage}/>
+
+                                <Route component={PageNotFound} />
                             </Switch>
                         </ErrorBoundary>
                     </Suspense>
