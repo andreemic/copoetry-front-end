@@ -24,7 +24,7 @@ const Slide = lazy(async () => {
 const Feedback = lazy(async () => import("feeder-react-feedback"))
 
 const WritePage = lazy(() => import('./components/WritePage/WritePage'))
-const MyPoemsPage = lazy(() => import('./components/PoemsOverview/MyPoemsPage'))
+const MyPoemsPage = lazy(() => import('./components/MyPoemsPage/MyPoemsPage'))
 const PoemPage = lazy(() => import("./components/PoemPage/PoemPage"));
 const WelcomePage = lazy(() => import("./components/WelcomePage/WelcomePage"))
 
@@ -48,9 +48,6 @@ function App() {
                             <Switch>
                                 <Route path='/welcome' component={WelcomePage}/>
                                 <PrivateRoute path='/write' component={WritePage}/>
-
-                                {/*<PrivateRoute path='/read/:poemid' component={PoemPage}/>
-                        <PrivateRoute path='/read' component={ReadAllPoemsPage}/>*/}
 
                                 <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
                                 <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
