@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useContext, useEffect} from "react";
+import React, {lazy, Suspense, useContext} from "react";
 import './App.css';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
