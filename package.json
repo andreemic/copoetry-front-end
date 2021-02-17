@@ -44,10 +44,9 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">1%",
       "not dead",
-      "not op_mini all",
-      "extends browserslist-config-google"
+      "last 4 versions"
     ],
     "development": [
       "last 1 chrome version",
