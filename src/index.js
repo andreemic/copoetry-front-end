@@ -1,5 +1,5 @@
 // src/index.js
-import React, {Suspense} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {Auth0Provider} from "./helpers/react-auth0-spa";
@@ -8,19 +8,18 @@ import history from "./history";
 import Store from "./helpers/anonymous";
 
 
-import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
-import {ThreeDots} from "@agney/react-loading";
+import {Integrations} from "@sentry/tracing";
 
+import("@sentry/react").then(sentry =>
+    sentry.init({
+        dsn: "https://edfcd183daaf4591afbc5c77f6d907c9@o524924.ingest.sentry.io/5638215",
+        integrations: [new Integrations.BrowserTracing()],
 
-Sentry.init({
-    dsn: "https://edfcd183daaf4591afbc5c77f6d907c9@o524924.ingest.sentry.io/5638215",
-    integrations: [new Integrations.BrowserTracing()],
-
-    // We recommend adjusting this value in production, or using tracesSampler
-    // for finer control
-    tracesSampleRate: 1.0,
-});
+        // We recommend adjusting this value in production, or using tracesSampler
+        // for finer control
+        tracesSampleRate: 1.0,
+    })
+)
 
 // A function that routes the user to the right place
 // after login
@@ -35,18 +34,16 @@ const onRedirectCallback = appState => {
 // Wrap App in the Auth0Provider component
 // The domain and client_id values will be found in your Auth0 dashboard
 ReactDOM.render(
-    <Suspense fallback={<ThreeDots className="big-loader" width="100"/>}>
-    <Auth0Provider
-        domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={process.env.REACT_APP_BASEURL}
-        audience={config.audience}
-        onRedirectCallback={onRedirectCallback}
-    >
-        <Store>
-            <App/>
-        </Store>
-    </Auth0Provider>
-    </Suspense>,
+    <Store>
+        <Auth0Provider
+            domain={config.domain}
+            client_id={config.clientId}
+            redirect_uri={process.env.REACT_APP_BASEURL}
+            audience={config.audience}
+            onRedirectCallback={onRedirectCallback}
+        >
+                <App/>
+        </Auth0Provider>
+    </Store>,
     document.getElementById("root")
 );

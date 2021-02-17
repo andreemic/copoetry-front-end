@@ -200,6 +200,10 @@
     font-size: 15px;
     font-style: normal;
 }
+.poem-error {
+    width: 100%;
+    text-align: center;
+}
 
 @media (max-width: 480px) {
     .poem {

@@ -14,6 +14,7 @@ function WritePage() {
     const {getRandomPoem, submitPoem} = useApi();
     const [poem, setPoem] = useState()
     const [loadPoemStatus, setLoadPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
+    const [fatalError, setFatalError] = useState("");
     const [addingPoem, setAddingPoem] = useState(false);
     const [submitPoemStatus, setSubmitPoemStatus] = useState(REQ_STATUS.NOT_STARTED);
     const isMobile = useMediaQuery({query: '(max-width: 480px)'})
@@ -21,6 +22,7 @@ function WritePage() {
     const getNewPoem = () => {
         setLoadPoemStatus(REQ_STATUS.LOADING);
         getRandomPoem().then(response => {
+            setFatalError("");
             if (response.status === "success") {
                 setLoadPoemStatus(REQ_STATUS.SUCCESS);
                 setPoem(response.data);
@@ -31,7 +33,7 @@ function WritePage() {
             } else {
                 // Request gone wrong.
                 setLoadPoemStatus(REQ_STATUS.FAIL);
-                setError(response.message);
+                setFatalError(response.message);
             }
         }).catch(err => {
             setError("Can't load this poem.")
@@ -39,6 +41,9 @@ function WritePage() {
     }
     useEffect(getNewPoem, [getRandomPoem]);
 
+    if (fatalError !== "") {
+        throw new Error(fatalError)
+    }
 
     const onSubmitPoem = (title, firstLine) => {
         if (!title || !firstLine || firstLine.length === 0 || title.length === 0) return;

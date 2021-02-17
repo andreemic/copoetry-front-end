@@ -13,6 +13,7 @@ const POEMS_PER_PAGE = 3;
 function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
     const [poems, setPoems] = useState(null)
     const [error, setError] = useState("");
+    const [fatalError, setFatalError] = useState("");
     const [loadPoemsStatus, setLoadPoemsStatus] = useState(REQ_STATUS.NOT_STARTED);
     const [poemSkeletons, setPoemSkeletons] = useState([])
 
@@ -47,12 +48,15 @@ function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
         const getPoemsInit = () => {
             setLoadPoemsStatus(REQ_STATUS.LOADING)
             getPoemsFunction(POEMS_PER_PAGE, 0).then(response => {
+                setFatalError("");
                 if (response.status === "success") {
                     setLoadPoemsStatus(REQ_STATUS.SUCCESS);
                     setPoems(response.data);
-                } else {
+                } else if (response.httpStatus !== 500){
                     setLoadPoemsStatus(REQ_STATUS.FAIL);
                     setError(response.message)
+                } else {
+                    setFatalError(response.message);
                 }
             }).catch(e => {
                 console.error(e);
@@ -62,6 +66,10 @@ function PoemsOverview({getPoemsFunction, poemsPerPage = 7}) {
         getPoemsInit()
         setPoemSkeletons(getPoemSkeletons(POEMS_PER_PAGE));
     }, [getPoemsFunction]);
+
+    if (fatalError !== "") {
+        throw new Error("Can't get poems: " + fatalError);
+    }
 
     return <div className="poems-overview">
         {(loadPoemsStatus <= REQ_STATUS.LOADING) ? poemSkeletons :

@@ -27,7 +27,7 @@ function PoemPage() {
     }
     useEffect(getPoem, [getPoemByID, poemid]);
     return !error ? <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> :
-        <span className="error">{error}</span>;
+        <p className="poem-error">{error}</p>;
 }
 
 export default PoemPage;

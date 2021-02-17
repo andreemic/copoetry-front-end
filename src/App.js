@@ -1,15 +1,17 @@
-import React, {lazy, Suspense, useContext} from "react";
+import React, {lazy, Suspense, useContext, useEffect} from "react";
 import './App.css';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 
 import 'react-toastify/dist/ReactToastify.css';
 import Background from "./components/Background/Background";
 import {Context} from "./helpers/anonymous"
-import "feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
+import "feeder-react-feedback/dist/feeder-react-feedback.css";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from './components/Header/Header'
+import {ErrorBoundary} from "@sentry/react";
+import SomethingWentWrong from "./components/SomethingWentWrong/SomethingWentWrong";
 
 const ToastContainer = lazy(async () => {
     const {ToastContainer} = await import('react-toastify');
@@ -27,32 +29,37 @@ const PoemPage = lazy(() => import("./components/PoemPage/PoemPage"));
 const WelcomePage = lazy(() => import("./components/WelcomePage/WelcomePage"))
 
 function App() {
-    const {isAuthenticated} = useAuth0();
-    const {loading} = useAuth0();
+    const {loading, isAuthenticated} = useAuth0();
     const [state] = useContext(Context);
+    useEffect(() => console.log(isAuthenticated), [isAuthenticated])
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
-        {isAuthenticated &&
-        <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ? "#000" : "#fdc6db"}
-                  hoverBorderColor={"#bde0feff"} zIndex={"51"}/>}
+        {isAuthenticated && <Suspense fallback={<span/>}>
+            <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ? "#000" : "#fdc6db"}
+                      hoverBorderColor={"#bde0feff"} zIndex={"51"}/>
+        </Suspense>}
         <Background/>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
                 <BrowserRouter>
                     <Suspense fallback={<ThreeDots className="big-loader" width="100"/>}>
                         {isAuthenticated && <Header/>}
+                        <ErrorBoundary fallback={SomethingWentWrong}>
 
-                        <Switch>
-                            <Route path='/welcome' component={WelcomePage}/>
-                            <PrivateRoute path='/write' component={WritePage}/>
+                            <Switch>
+                                <Route path='/welcome' component={WelcomePage}/>
+                                <PrivateRoute path='/write' component={WritePage}/>
 
-                            {/*<PrivateRoute path='/read/:poemid' component={PoemPage}/>
+                                {/*<PrivateRoute path='/read/:poemid' component={PoemPage}/>
                         <PrivateRoute path='/read' component={ReadAllPoemsPage}/>*/}
 
-                            <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
-                            <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
-                            <Route component={isAuthenticated ? WritePage : WelcomePage}/>
-                        </Switch>
+                                <PrivateRoute path='/my_poems/:poemid' component={PoemPage}/>
+                                <PrivateRoute path='/my_poems' component={MyPoemsPage}/>
+                                <Route>
+                                    <Redirect to={isAuthenticated ? "/write" : "/welcome"}/>
+                                </Route>
+                            </Switch>
+                        </ErrorBoundary>
                     </Suspense>
                 </BrowserRouter>
             </div>

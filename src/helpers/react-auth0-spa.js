@@ -20,6 +20,7 @@ export const Auth0Provider = ({
     useEffect(() => {
         const initAuth0 = async () => {
             const auth0FromHook = await createAuth0Client(initOptions);
+            console.log(auth0FromHook)
             setAuth0(auth0FromHook);
             if (window.location.search.includes("code=") &&
                 window.location.search.includes("state=")) {

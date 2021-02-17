@@ -4,7 +4,8 @@ import {Context} from "./anonymous";
 
 const defaultResponse = {
     status: "error",
-    message: "Trouble communicating with our servers."
+    message: "Trouble communicating with our servers.",
+    httpStatus: 500
 }
 
 function useApi(callback) {
@@ -29,7 +30,6 @@ function useApi(callback) {
                 if (addAnonymous) body = {...body, anonymous: state.anonymous};
                 params['body'] = JSON.stringify(body);
             }
-            console.log(process.env.REACT_APP_API_BASEURL + path)
             const response = await fetch(process.env.REACT_APP_API_BASEURL + path, params);
             let responseBody = await response.json();
             if (responseBody.status === undefined) return defaultResponse; // Auth errors result in a string.
