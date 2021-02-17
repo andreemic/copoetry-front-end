@@ -31,7 +31,6 @@ const WelcomePage = lazy(() => import("./components/WelcomePage/WelcomePage"))
 function App() {
     const {loading, isAuthenticated} = useAuth0();
     const [state] = useContext(Context);
-    useEffect(() => console.log(isAuthenticated), [isAuthenticated])
 
     return <div className={"app-con " + (state.anonymous ? "darkmode" : "")}>
         {isAuthenticated && <Suspense fallback={<span/>}>
