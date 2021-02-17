@@ -1,6 +1,6 @@
 import React, {lazy, Suspense, useContext} from "react";
 import './App.css';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 
@@ -47,6 +47,9 @@ function App() {
                         <ErrorBoundary fallback={SomethingWentWrong}>
 
                             <Switch>
+                                <Route exact path={'/'}>
+                                    <Redirect to={isAuthenticated ? '/write' : '/welcome'}/>
+                                </Route>
                                 <Route exact path='/welcome' component={WelcomePage}/>
                                 <PrivateRoute exact path='/write' component={WritePage}/>
 
