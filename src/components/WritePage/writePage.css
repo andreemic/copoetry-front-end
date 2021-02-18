@@ -5,7 +5,9 @@
     margin: 20px auto;
     min-height: 40px;
 }
-
+.page-desc.hidden {
+    visibility: hidden;
+}
 .write-page-btn-con {
     display: flex;
     justify-content: space-around;

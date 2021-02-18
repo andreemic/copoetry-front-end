@@ -1,3 +1,5 @@
+import React from "react";
+
 export const REQ_STATUS = {
     NOT_STARTED: 0,
     LOADING: 1,
@@ -22,6 +24,7 @@ export function getRequestStatusClass(status) {
             return ""
     }
 }
+
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

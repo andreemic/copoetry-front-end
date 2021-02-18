@@ -6,7 +6,6 @@ import Poem from "../Poem/Poem";
 import PoemInput from "./PoemInput";
 import {getErrorMessage, POEM_SEND_ERR, showError, showSuccess} from "../../helpers/ui-msg";
 import {useMediaQuery} from "react-responsive";
-import {Link} from "react-router-dom";
 
 function WritePage() {
     const [error, setError] = useState("")
@@ -35,7 +34,7 @@ function WritePage() {
                 setLoadPoemStatus(REQ_STATUS.FAIL);
                 setFatalError(response.message);
             }
-        }).catch(err => {
+        }).catch(() => {
             setError("Can't load this poem.")
         });
     }
@@ -65,26 +64,26 @@ function WritePage() {
         }).catch(() => setError("Couldn't submit this poem. Try reloading the page."));
     };
 
+
     return <div className={"write-page"}>
-        <p className="page-desc">
+        <p className={"page-desc "}>
             {error === "" ?
-                (addingPoem ? <span>Do your thing.</span> :
-                    (poem == null ? <span>No poems going around at the moment... Start your own!</span> :
-                        (isMobile ? <span>Here's a poem someone started. Add a line and watch it grow under
-                             <Link to="/my_poems"> my poems</Link> or start your own.</span> : <span>Here's a poem someone started.
+                (addingPoem ? "Do your thing." :
+                    (poem == null && loadPoemStatus === REQ_STATUS.SUCCESS ? "No poems going around at the moment... Start your own!" :
+                        (isMobile ? "Here's a poem someone started. Add a line and watch it grow under my poems or start your own." :
+                                `Here's a poem someone started.
             You get one shot to add a line. If you choose to skip, the poem flies away to someone else.
-                But if you don't, you can watch it grow under <i>my poems</i>.</span>)))
-                : <span>{error}</span>
-            }
+                But if you don't, you can watch it grow under my poems.`
+                        ))) : error}
         </p>
-        <div className={"write-page-btn-con" + (addingPoem ? ' hidden' : '')}>
+        <div className={"write-page-btn-con" + (addingPoem || loadPoemStatus <= REQ_STATUS.LOADING ? ' hidden' : '')}>
             {!addingPoem && <button onClick={() => setAddingPoem(true)}>Add Poem</button>}
             {addingPoem && <button onClick={() => setAddingPoem(false)}>Back</button>}
             {poem == null ? null : <button onClick={getNewPoem}>Skip Poem</button>}
         </div>
-        {addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
-            : (poem != null ?
-                <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/> : null)}
+        {loadPoemStatus !== REQ_STATUS.FAIL &&
+            (addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
+                : <Poem poem={poem} setPoem={setPoem} showSkeleton={loadPoemStatus === REQ_STATUS.LOADING}/>)}
     </div>;
 }
 
