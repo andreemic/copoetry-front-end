@@ -59,7 +59,7 @@ function Poem({poem, setPoem, showSkeleton}) {
             {activeVoting !== null && <PoemVoting voting={activeVoting}/>}
         </div>
 
-        {!showSkeleton && <PoemFooter poem={poem}/>}
+        {!showSkeleton && <PoemFooter user={user} poem={poem}/>}
     </div>
 }
 
