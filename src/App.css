@@ -140,6 +140,17 @@ body {
     width: 100%;
     opacity: 0.5;
 }
+.fake-bg {
+    background: linear-gradient(to left, #ffafcc, #ffc8dd);
+    background: -webkit-linear-gradient(to left, #ffafcc, #ffc8dd);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    pointer-events: none;
+}
 
 @media (max-width: 480px) {
     html, body, .app-con, #root, .app-wrapper {

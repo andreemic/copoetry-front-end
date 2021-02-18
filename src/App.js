@@ -5,7 +5,6 @@ import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 
 import 'react-toastify/dist/ReactToastify.css';
-import Background from "./components/Background/Background";
 import {Context} from "./helpers/anonymous"
 import "feeder-react-feedback/dist/feeder-react-feedback.css";
 import PrivateRoute from "./components/PrivateRoute";
@@ -22,7 +21,8 @@ const Slide = lazy(async () => {
     const {Slide} = await import('react-toastify');
     return {default: Slide};
 });
-const Feedback = lazy(async () => import("feeder-react-feedback"))
+const Feedback = lazy(() => import("feeder-react-feedback"))
+const Background = lazy(() => import("./components/Background/Background"));
 
 const WritePage = lazy(() => import('./components/WritePage/WritePage'))
 const MyPoemsPage = lazy(() => import('./components/MyPoemsPage/MyPoemsPage'))
@@ -38,7 +38,7 @@ function App() {
             <Feedback projectId="602adc27a8a0030004764598" primaryColor={state.anonymous ? "#000" : "#fdc6db"}
                       hoverBorderColor={"#bde0feff"} zIndex={"51"}/>
         </Suspense>}
-        <Background/>
+        <Suspense fallback={<div className={"fake-bg"}/>}><Background/></Suspense>
         {loading ? <ThreeDots className="big-loader" width="100"/> :
             <div className="app-wrapper">
                 <BrowserRouter>
@@ -56,7 +56,7 @@ function App() {
                                 <PrivateRoute exact strict path='/my_poems/:poemid' component={PoemPage}/>
                                 <PrivateRoute exact path='/my_poems' component={MyPoemsPage}/>
 
-                                <Route component={PageNotFound} />
+                                <Route component={PageNotFound}/>
                             </Switch>
                         </ErrorBoundary>
                     </Suspense>

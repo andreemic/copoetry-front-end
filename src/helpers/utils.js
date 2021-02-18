@@ -1,5 +1,3 @@
-import React from "react";
-
 export const REQ_STATUS = {
     NOT_STARTED: 0,
     LOADING: 1,
