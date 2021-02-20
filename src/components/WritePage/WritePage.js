@@ -69,7 +69,7 @@ function WritePage() {
         <p className={"page-desc "}>
             {error === "" ?
                 (addingPoem ? "Do your thing." :
-                    (poem == null && loadPoemStatus === REQ_STATUS.SUCCESS ? "No poems going around at the moment... Start your own!" :
+                    (!poem && loadPoemStatus === REQ_STATUS.SUCCESS ? "No poems going around at the moment... Start your own!" :
                         (isMobile ? "Here's a poem someone started. Add a line and watch it grow under my poems or start your own." :
                                 `Here's a poem someone started.
             You get one shot to add a line. If you choose to skip, the poem flies away to someone else.
