@@ -1,6 +1,7 @@
 .app-wrapper {
     z-index: 20;
 }
+
 svg.big-loader {
     position: fixed;
     top: 50%;
@@ -22,6 +23,7 @@ body {
 
     font-family: 'Montserrat', sans-serif;
 }
+
 .darkmode {
     color: white;
 }
@@ -30,7 +32,7 @@ body {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
+    font-size: 24px; /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -55,19 +57,22 @@ body {
     font-weight: 300;
     font-style: italic;
 }
+
 .personal {
     color: #0084ff;
 }
 
-.darkmode .personal{
+.darkmode .personal {
     color: #b62fff;
 }
+
 .small-boxy {
     font-family: Montserrat, sans-serif;
     font-feature-settings: "smcp", "c2sc";
     font-variant: all-small-caps;
     font-size: 17px;
 }
+
 .small-boxy-btn {
     padding: 5px 11px;
     background: none;
@@ -77,6 +82,7 @@ body {
     border: 2px solid white;
     transition: background-color 0.3s, color 0.3s;
 }
+
 /*.small-boxy-btn:hover {*/
 /*    color: #ffc7dc;*/
 /*    background-color: white;*/
@@ -84,10 +90,12 @@ body {
 .Toastify__toast {
     font-size: 15px;
 }
+
 .Toastify__toast--success {
     background: white !important;
 }
-.Toastify__toast--success .Toastify__toast-body{
+
+.Toastify__toast--success .Toastify__toast-body {
     background: linear-gradient(to left, #ffafcc, #ffc8dd);
     background: -webkit-linear-gradient(to left, #ffafcc, #ffc8dd);
 
@@ -95,6 +103,7 @@ body {
     -webkit-text-fill-color: transparent;
     color: #ffafcc;
 }
+
 .Toastify__toast--success .Toastify__close-button {
     color: #ffc8dd;
 }
@@ -109,19 +118,27 @@ body {
     background: white !important;
     opacity: 0.8;
 }
+
 .Toastify__toast--error .Toastify__close-button {
     color: #b6b6b6;
 }
-.Toastify__toast--error .Toastify__toast-body{
+
+.Toastify__toast--error .Toastify__toast-body {
     color: #d53f3f;
 }
-@-ms-viewport{
+
+@-ms-viewport {
     width: device-width;
 }
+
 .frf-modal-feedback-types *, .frf-modal-button * {
     color: black !important;
 }
-.frf-modal-button { background-color: #ffffff !important;}
+
+.frf-modal-button {
+    background-color: #ffffff !important;
+}
+
 .frf-modal-content-container {
     padding: 20px;
 }
@@ -129,6 +146,7 @@ body {
 .frf-modal-feedback-selected {
     background-color: white !important;
 }
+
 .small-label-subtext {
     display: block;
     font-size: 14px;
@@ -140,6 +158,7 @@ body {
     width: 100%;
     opacity: 0.5;
 }
+
 .fake-bg {
     background: linear-gradient(to left, #ffafcc, #ffc8dd);
     background: -webkit-linear-gradient(to left, #ffafcc, #ffc8dd);
@@ -151,18 +170,20 @@ body {
     z-index: -10;
     pointer-events: none;
 }
-
 @media (max-width: 480px) {
     html, body, .app-con, #root, .app-wrapper {
         height: 100%;
     }
+
     .Toastify__toast {
-        margin: 10px;
+        margin: 10px !important;
     }
+
     .small-label-subtext {
         font-size: 12px;
         left: 5px;
     }
+
     .app-wrapper {
         display: flex;
         flex-direction: column;

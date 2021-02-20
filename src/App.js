@@ -1,17 +1,17 @@
 import React, {lazy, Suspense, useContext} from "react";
 import './App.css';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {useAuth0} from "./helpers/react-auth0-spa";
 import {ThreeDots} from '@agney/react-loading';
 
 import 'react-toastify/dist/ReactToastify.css';
 import {Context} from "./helpers/anonymous"
 import "feeder-react-feedback/dist/feeder-react-feedback.css";
-import PrivateRoute from "./components/PrivateRoute";
 import Header from './components/Header/Header'
 import {ErrorBoundary} from "@sentry/react";
 import SomethingWentWrong from "./components/SomethingWentWrong/SomethingWentWrong";
-import PageNotFound from "./components/PageNotFound/PageNotFound";
+import MainContent from "./components/MainContent/MainContent";
+
 
 const ToastContainer = lazy(async () => {
     const {ToastContainer} = await import('react-toastify');
@@ -23,11 +23,6 @@ const Slide = lazy(async () => {
 });
 const Feedback = lazy(() => import("feeder-react-feedback"))
 const Background = lazy(() => import("./components/Background/Background"));
-
-const WritePage = lazy(() => import('./components/WritePage/WritePage'))
-const MyPoemsPage = lazy(() => import('./components/MyPoemsPage/MyPoemsPage'))
-const PoemPage = lazy(() => import("./components/PoemPage/PoemPage"));
-const WelcomePage = lazy(() => import("./components/WelcomePage/WelcomePage"))
 
 function App() {
     const {loading, isAuthenticated} = useAuth0();
@@ -44,21 +39,14 @@ function App() {
                 <BrowserRouter>
                     <Suspense fallback={<ThreeDots className="big-loader" width="100"/>}>
                         {isAuthenticated && <Header/>}
-                        <ErrorBoundary fallback={SomethingWentWrong}>
-
-                            <Switch>
-                                <Route exact path={'/'}>
-                                    <Redirect to={isAuthenticated ? '/write' : '/welcome'}/>
-                                </Route>
-                                <Route exact path='/welcome' component={WelcomePage}/>
-                                <PrivateRoute exact path='/write' component={WritePage}/>
-
-                                <PrivateRoute exact strict path='/my_poems/:poemid' component={PoemPage}/>
-                                <PrivateRoute exact path='/my_poems' component={MyPoemsPage}/>
-
-                                <Route component={PageNotFound}/>
-                            </Switch>
-                        </ErrorBoundary>
+                        <Route exact path={'/'}>
+                            <Redirect to={isAuthenticated ? '/write' : '/welcome'}/>
+                        </Route>
+                        <Route path="*">
+                            <ErrorBoundary fallback={SomethingWentWrong}>
+                                <MainContent/>
+                            </ErrorBoundary>
+                        </Route>
                     </Suspense>
                 </BrowserRouter>
             </div>

@@ -79,7 +79,7 @@ function WritePage() {
         <div className={"write-page-btn-con" + (addingPoem || loadPoemStatus <= REQ_STATUS.LOADING ? ' hidden' : '')}>
             {!addingPoem && <button onClick={() => setAddingPoem(true)}>Add Poem</button>}
             {addingPoem && <button onClick={() => setAddingPoem(false)}>Back</button>}
-            {poem == null ? null : <button onClick={getNewPoem}>Skip Poem</button>}
+            {!addingPoem && poem != null && <button onClick={getNewPoem}>Skip Poem</button>}
         </div>
         {loadPoemStatus !== REQ_STATUS.FAIL &&
             (addingPoem ? <PoemInput onSubmit={onSubmitPoem} submitStatus={submitPoemStatus}/>
