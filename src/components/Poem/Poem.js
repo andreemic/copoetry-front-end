@@ -56,7 +56,7 @@ function Poem({poem, setPoem, showSkeleton}) {
                 ))}
             {(!showSkeleton && activeVoting === null && canAddLineToPoem(poem, user)) &&
             <LineInput poemId={poem.id} setPoem={setPoem}/>}
-            {activeVoting !== null && <PoemVoting voting={activeVoting}/>}
+            {activeVoting !== null && <PoemVoting voting={activeVoting} setPoem={setPoem} user={user}/>}
         </div>
 
         {!showSkeleton && <PoemFooter user={user} poem={poem}/>}

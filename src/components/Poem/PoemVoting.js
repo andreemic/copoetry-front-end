@@ -33,7 +33,7 @@ function PoemVoting({voting, setPoem, user}) {
                 {voting.votesFor + voting.votesAgainst > 3 ? (voting.votesFor > voting.votesAgainst ?
                     "Most of your co-authors agree." :
                     (voting.votesFor === voting.votesAgainst ?
-                        "Oh, this is a controversial one! It's a tie." : "Most of your co-authors do not agree"))
+                        "It's a tie." : "Most of your co-authors do not agree"))
                     : (voting.creator === user.nickname ? "Let's see what the others say..." : "")}
             </div>
             : <div className={"poem-active-voting-choice-con"}>
