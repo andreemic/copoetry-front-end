@@ -22,7 +22,7 @@ function WelcomePage() {
         <p>You add a line, she adds a line... See what you can create.</p>
         <ParticleEffectButton color='#A2D2FF' hidden={loginClicked}
         duration={PARTICLE_DURATION} direction="top" className="welcome-login-btn-con">
-            <button className="welcome-login-btn" onClick={loginClick}>LOG IN VIA AUTH0</button>
+            <button className="welcome-login-btn" onClick={loginClick}>LOG IN</button>
         </ParticleEffectButton>
     </div>;
 }
