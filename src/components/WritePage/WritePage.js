@@ -27,7 +27,7 @@ function WritePage() {
                 setPoem(response.data);
             } else if (response.status === "error" && response.httpStatus === 404) {
                 // No editable poems.
-                setLoadPoemStatus(REQ_STATUS.FAIL);
+                setLoadPoemStatus(REQ_STATUS.SUCCESS);
                 setPoem(null);
             } else {
                 // Request gone wrong.
