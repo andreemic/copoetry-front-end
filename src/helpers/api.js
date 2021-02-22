@@ -8,7 +8,7 @@ const defaultResponse = {
     httpStatus: 500
 }
 
-function useApi(callback) {
+function useApi() {
     // Function for getting the Access Token
     const {getTokenSilently, user} = useAuth0()
     const [state, dispatch] = useContext(Context);
@@ -16,7 +16,7 @@ function useApi(callback) {
     // If any of these requests return null, communication with the server was unsuccessful.
     // (invalid auth token, blabla)
     // To-Do: Pass statuses down to the caller to reflect particular statuses in UI.
-    const makeRequest = useCallback( async (path, method = 'GET', body = undefined, addAnonymous = false) => {
+    const makeRequest = useCallback(async (path, method = 'GET', body = undefined, anonymous = null) => {
         let token = await getTokenSilently();
         try {
             let params = {
@@ -27,7 +27,7 @@ function useApi(callback) {
                 }
             };
             if (method === 'POST') {
-                if (addAnonymous) body = {...body, anonymous: state.anonymous};
+                if (anonymous != null) body = {...body, anonymous: anonymous};
                 params['body'] = JSON.stringify(body);
             }
             const response = await fetch(process.env.REACT_APP_API_BASEURL + path, params);
@@ -38,44 +38,51 @@ function useApi(callback) {
         } catch (e) {
             return defaultResponse;
         }
-    }, [getTokenSilently, state.anonymous]);
+    }, [getTokenSilently]);
+
+    const makeGetRequest = useCallback(async (path) =>
+            makeRequest(path, 'GET', null, false)
+        , [makeRequest]);
 
 
     const getPoemByID = useCallback(async (poemId) =>
-            makeRequest("/api/get/poem/" + poemId)
-        , [makeRequest])
+            makeGetRequest("/api/get/poem/" + poemId)
+        , [makeGetRequest])
 
-    const submitLine = async (poemId, content, beginCompletionVote) =>
-        makeRequest('/api/add/line', 'POST', {poemId, content, beginCompletionVote}, true)
+    const submitLine = useCallback(async (poemId, content, beginCompletionVote) =>
+            makeRequest('/api/add/line', 'POST', {poemId, content, beginCompletionVote}, state.anonymous)
+        , [makeRequest, state.anonymous]);
 
 
     const getRandomPoem = useCallback(async () =>
-            makeRequest('/api/get/random-poem')
-        , [makeRequest])
+            makeGetRequest('/api/get/random-poem'),
+        [makeGetRequest])
 
-    const submitPoem = async (title, firstLine) => {
+    const submitPoem = useCallback(async (title, firstLine) => {
         if (!title || !title.length || title.length === 0) throw new Error("Trying to send titleless Poem.");
-        return makeRequest('/api/add/poem', 'POST', {title, firstLine}, true);
-    };
+        return makeRequest('/api/add/poem', 'POST', {title, firstLine}, state.anonymous);
+    }, [makeRequest, state.anonymous]);
 
     const getNeedsToVote = useCallback(async () =>
-            makeRequest('/api/user/needs-to-vote')
-        , [makeRequest])
+            makeGetRequest('/api/user/needs-to-vote')
+        , [makeGetRequest])
 
     const getUserPoems = useCallback(async (limit, offset) =>
-            makeRequest(`/api/get/my-poems?limit=${limit}&offset=${offset}`)
-        , [makeRequest])
+            makeGetRequest(`/api/get/my-poems?limit=${limit}&offset=${offset}`)
+        , [makeGetRequest])
 
     const getPoems = useCallback(async (limit, offset) =>
-            makeRequest(`/api/get/poems/all?limit=${limit}&offset=${offset}`)
-        , [makeRequest])
+            makeGetRequest(`/api/get/poems/all?limit=${limit}&offset=${offset}`)
+        , [makeGetRequest])
 
     const register = useCallback(async () =>
-        user !== undefined && makeRequest("/api/user/register", 'POST', {nickname: user.nickname})
+        user !== undefined && makeRequest("/api/user/register", 'POST', {nickname: user.nickname}, null)
         , [makeRequest, user]);
+
     const castCompletionVote = useCallback(async (votingId, forCompletingPoem) =>
-            makeRequest("/api/poem/completion-vote", 'POST', {forCompletingPoem, votingId})
-        , [makeRequest])
+            makeRequest("/api/poem/completion-vote", 'POST', {forCompletingPoem, votingId}, state.anonymous)
+        , [makeRequest, state.anonymous])
+
     const updateNeedsToVote = useCallback(() => {
         getNeedsToVote().then(result => {
             let needsToVote = false
